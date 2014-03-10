@@ -12,14 +12,29 @@
       <src_folder value="com.android.ide.eclipse.adt.LIBRARIES" expected_position="5" />
     </src_description>
   </component>
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/NeonScraper-android/gen" />
+        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/NeonScraper-android/gen" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/NeonScraper-android/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/NeonScraper-android/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/NeonScraper-android/assets" />
+        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/NeonScraper-android/libs" />
+        <resOverlayFolders>
+          <path>/NeonScraper-android/res-overlay</path>
+        </resOverlayFolders>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/NeonScraper-android/bin/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/NeonScraper-android">
       <sourceFolder url="file://$MODULE_DIR$/NeonScraper-android/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/NeonScraper-android/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/NeonScraper-android/gen" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android 4.4 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="NeonScraper" exported="" />
     <orderEntry type="module-library" exported="">
