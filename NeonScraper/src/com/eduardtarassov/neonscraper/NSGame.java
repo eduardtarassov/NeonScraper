@@ -10,17 +10,19 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.screens.GameScreen;
 
+import javax.swing.*;
+
 public class NSGame extends Game {
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
-	private Texture texture;
-	private Sprite sprite;
-	
-	@Override
-	public void create() {		
+  //  private static NSGame instance;
+
+
+
+    @Override
+	public void create() {
 		System.out.println("Game Created!");
         AssetLoader.load();
         setScreen(new GameScreen());
@@ -28,19 +30,14 @@ public class NSGame extends Game {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		texture.dispose();
+		//batch.dispose();
+		//texture.dispose();
 	}
 
 	@Override
 	public void render() {		
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		/*batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		sprite.draw(batch);
-		batch.end(); */
 	}
 
 	@Override
