@@ -33,22 +33,4 @@ public class NSGame extends Game {
 		//batch.dispose();
 		//texture.dispose();
 	}
-
-	@Override
-	public void render() {		
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	}
-
-	@Override
-	public void resize(int width, int height) {
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-	}
 }

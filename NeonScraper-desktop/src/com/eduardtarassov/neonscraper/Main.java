@@ -8,8 +8,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "NeonScraper";
 		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 320;
+		cfg.width = 408;
+		cfg.height = 272;
 		
 		new LwjglApplication(new NSGame(), cfg);
 	}
