@@ -9,9 +9,9 @@ import java.util.ArrayList;
  * Created by Eduard on 3/10/14.
  */
 public class EntityManager {
-    private static ArrayList<Entity> entities = new ArrayList<Entity>();   // In example author uses ArrayList
+    private static ArrayList<Entity> entities = new ArrayList<Entity>();   // In example author uses List
     private static boolean isUpdating;
-    private static ArrayList<Entity> addedEntities = new ArrayList<Entity>(); // In example author uses ArrayList
+    private static ArrayList<Entity> addedEntities = new ArrayList<Entity>(); // In example author uses List
 
     /*
     * This

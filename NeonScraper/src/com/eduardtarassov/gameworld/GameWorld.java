@@ -23,7 +23,6 @@ public class GameWorld {
 
     public GameWorld() {
         currentState = GameState.MENU;
-        //playerShip = new PlayerShip();
 
     }
 
@@ -91,8 +90,8 @@ public class GameWorld {
         return currentState == GameState.RUNNING;
     }
 
-    public PlayerShip getPlayerShip(){
+    /*public PlayerShip getPlayerShip(){
         return playerShip;
-    }
+    } */
 
 }

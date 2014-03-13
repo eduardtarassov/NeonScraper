@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.nshelpers.AssetLoader;
+import com.eduardtarassov.nshelpers.Constants;
 
 import java.util.List;
 
@@ -21,19 +22,23 @@ import java.util.List;
  * This class is responsible for rendering game objects into graphics task.
  */
 public class GameRenderer {
-
+    //Game objects
     private GameWorld myWorld;
+   // private EntityManager manager;
+    //Game configuration objects
     private OrthographicCamera camera;
     private ShapeRenderer shapeRenderer;
-
     private SpriteBatch spriteBatch;
     private Texture texture;
     private Sprite sprite;
 
+
+    // Simple game fields
     private int midPointY, midPointX;
 
+
+
     // Game Objects
-       private PlayerShip playerShip;
     // Game Assets
     private TextureRegion player;
     private Animation birdAnimation;
@@ -47,11 +52,15 @@ public class GameRenderer {
 
         this.midPointX = midPointX;
         this.midPointY = midPointY;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(true, midPointX*2, midPointY*2);
+
+        camera = new OrthographicCamera(Constants.WIDTH, Constants.HEIGHT);
+        //camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+       camera.position.set(Constants.WIDTH/2, Constants.HEIGHT/2, 0);
+        camera.update();
 
         spriteBatch = new SpriteBatch();
         spriteBatch.setProjectionMatrix(camera.combined);
+
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
 
@@ -62,7 +71,9 @@ public class GameRenderer {
     }
 
     private void initGameObjects() {
-        playerShip = myWorld.getPlayerShip();
+        //playerShip = myWorld.getPlayerShip();
+        EntityManager.addEntity(PlayerShip.getInstance());
+
     }
 
     private void initAssets() {
@@ -70,48 +81,30 @@ public class GameRenderer {
     }
 
 private void drawPlayer(){
-    spriteBatch.draw(player, midPointX, midPointY);
+    spriteBatch.draw(player, midPointX-20, midPointY-20);
 }
 
     public void render(float delta, float runTime) {
-
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        // Sets the clear screen color to: Cornflower Blue
+        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f, 0xed / 255.0f, 0xff / 255.0f); //The same in decimal notation Gdx.gl.glClearColor(  100/255.0f, 149/255.0f, 237/255.0f, 255/255.0f);
+        // Clears the screen
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-
-        shapeRenderer.begin(ShapeType.Filled);
+        //shapeRenderer.begin(ShapeType.Filled);
 
         // Draw Background color
-        shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
-        shapeRenderer.rect(0, 0, 136, midPointY + 66);
-        shapeRenderer.end();
+       // shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
+        //shapeRenderer.rect(0, 0, midPointX*2, midPointY*2);
+        //shapeRenderer.end();
         // Supposed to be in the GameRoot draw() method
         spriteBatch.begin();
         spriteBatch.enableBlending();
-         drawPlayer();
         EntityManager.draw(spriteBatch);
+
+                 //drawPlayer();
+        //manager.draw(spriteBatch);
         spriteBatch.end();
 
-
-
-
-        //
-       // drawTransition(delta);
-
     }
-
-  /*  private void drawTransition(float delta) {
-        if (alpha.getValue() > 0) {
-            manager.update(delta);
-            Gdx.gl.glEnable(GL10.GL_BLEND);
-            Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-            shapeRenderer.begin(ShapeType.Filled);
-            shapeRenderer.setColor(1, 1, 1, alpha.getValue());
-            shapeRenderer.rect(0, 0, 136, 300);
-            shapeRenderer.end();
-            Gdx.gl.glDisable(GL10.GL_BLEND);
-
-        }
-    }    */
 
 }

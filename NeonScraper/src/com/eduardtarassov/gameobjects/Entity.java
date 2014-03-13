@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Eduard on 3/10/14.
  * This is the base class for out entities.
  */
-abstract class Entity {
-       protected TextureRegion image;
+public class Entity {
+       public TextureRegion image;
     // The tint of the image. This will also allow us to change the transparency.
-    protected Color color = Color.WHITE;
+    public Color color = Color.WHITE;
     public Vector2 position, velocity;
     public float orientation;
     // We will use radius for circular collision detection.
@@ -26,7 +26,9 @@ abstract class Entity {
             return image == null ? Vector2.Zero : new Vector2(image.getRegionWidth(), image.getRegionHeight());
     }
 
-    public abstract void update();
+    public void update(){
+
+    }
 
     public void draw(SpriteBatch spriteBatch)
     {
