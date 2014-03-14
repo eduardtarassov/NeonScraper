@@ -13,13 +13,13 @@ import com.badlogic.gdx.math.Vector2;
 public class Entity {
        public TextureRegion image;
     // The tint of the image. This will also allow us to change the transparency.
-    public Color color = Color.WHITE;
-    public Vector2 position, velocity;
-    public float orientation;
+    private Color color = Color.WHITE;
+    protected Vector2 position, velocity;
+    private float orientation;
     // We will use radius for circular collision detection.
-    public float radius = 20;
+    protected float radius = 20;
     // True if the entity was destroyed and should be deleted.
-    public boolean isExpired;
+    protected boolean isExpired;
 
     public Vector2 size()
     {

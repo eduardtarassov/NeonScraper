@@ -7,6 +7,7 @@ import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameworld.GameRenderer;
 import com.eduardtarassov.gameworld.GameWorld;
+import com.eduardtarassov.nshelpers.AndroidInput;
 
 /**
  * Created by Eduard on 3/10/14.
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
 
 
         world = new GameWorld();
-       // Gdx.input.setInputProcessor(new InputHandler(world, screenWidth / gameWidth, screenHeight / gameHeight));
+        Gdx.input.setInputProcessor(new AndroidInput());
         renderer = new GameRenderer(world, midPointX, midPointY);
 
 
