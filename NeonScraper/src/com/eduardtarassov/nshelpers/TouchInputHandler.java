@@ -1,6 +1,7 @@
 package com.eduardtarassov.nshelpers;
 
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.gameobjects.Pointer;
@@ -10,23 +11,37 @@ import java.util.ArrayList;
 /**
  * Created by Eduard on 3/13/14.
  */
-public class AndroidInput implements InputProcessor {
+public class TouchInputHandler implements InputProcessor {
     //private SpriteBatch spriteBatch;
-
-
-
 
     public ArrayList<Pointer> touches = new ArrayList<Pointer>();
     public Pointer pointerObject;
 
-    public AndroidInput(){
-
+    public TouchInputHandler(){
 
     }
 
     @Override
     public boolean keyDown(int keycode) {
         // TODO Auto-generated method stub
+        switch(keycode){
+            case Keys.A:
+                // Ship moves left
+                System.out.println("Ship moves left");
+                break;
+            case Keys.W:
+                // Ship moves up
+                System.out.println("Ship moves up");
+                break;
+            case Keys.D:
+                // Ship moves right
+                System.out.println("Ship moves right");
+                break;
+            case Keys.S:
+                // Ship moves down
+                System.out.println("Ship moves down");
+                break;
+        }
         return false;
     }
 
@@ -62,11 +77,13 @@ public class AndroidInput implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        //update pointer image while touch is dragged
-        if (pointer == Input.Buttons.LEFT) {
-            onMouseDragged();
+        // Update pointer image while touch is dragged
+
+        // Condition to the left mouse button dragged
+        /*if (pointer == Input.Buttons.LEFT) {
+
             return true;
-        }
+        } */
 
        pointerObject = new Pointer(screenX, screenY, true);
         touches.add(pointerObject);
@@ -77,9 +94,6 @@ public class AndroidInput implements InputProcessor {
         return true;
     }
 
-    private void onMouseDragged(){
-     System.out.println("mouseDragged");
-    }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {

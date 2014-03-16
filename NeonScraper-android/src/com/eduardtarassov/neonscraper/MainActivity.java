@@ -12,7 +12,11 @@ public class MainActivity extends AndroidApplication {
         
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
-        
+
+        // Passing configurations that we are going to use accelerometer and compass (for motion input)
+        cfg.useAccelerometer = true;
+        cfg.useCompass = true;
+
         initialize(new NSGame(), cfg);
     }
 }

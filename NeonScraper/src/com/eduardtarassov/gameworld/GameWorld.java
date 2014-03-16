@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
+import com.eduardtarassov.nshelpers.MotionInputHandler;
 
 /**
  * Created by Eduard on 3/10/2014.
@@ -17,12 +18,13 @@ public class GameWorld {
     private PlayerShip playerShip;
     private int midPointY, midPointX;
 
+
     enum GameState {
         MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
     }
 
     public GameWorld() {
-        currentState = GameState.MENU;
+        currentState = GameState.RUNNING;
 
     }
 
@@ -41,7 +43,6 @@ public class GameWorld {
             default:
                 break;
         }
-
     }
 
     private void updateReady(float delta) {
@@ -50,7 +51,9 @@ public class GameWorld {
 
     public void updateRunning(float delta) {
         EntityManager.update();
-        playerShip.update();
+       // playerShip.update();
+        System.out.println("HUUJ");
+        MotionInputHandler.motion();
     }
 
    /* public void addScore(int increment) {
