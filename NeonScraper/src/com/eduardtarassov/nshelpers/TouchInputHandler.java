@@ -21,7 +21,7 @@ public class TouchInputHandler implements InputProcessor {
     public TouchInputHandler(){
         playerShip = PlayerShip.getInstance();
     }
-
+                                         //
     @Override
     public boolean keyDown(int keycode) {
         // TODO Auto-generated method stub
