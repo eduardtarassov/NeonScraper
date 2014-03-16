@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameobjects.Pointer;
 
 import java.util.ArrayList;
@@ -13,12 +14,12 @@ import java.util.ArrayList;
  */
 public class TouchInputHandler implements InputProcessor {
     //private SpriteBatch spriteBatch;
-
+     private PlayerShip playerShip;
     public ArrayList<Pointer> touches = new ArrayList<Pointer>();
     public Pointer pointerObject;
 
     public TouchInputHandler(){
-
+        playerShip = PlayerShip.getInstance();
     }
 
     @Override
@@ -27,18 +28,22 @@ public class TouchInputHandler implements InputProcessor {
         switch(keycode){
             case Keys.A:
                 // Ship moves left
+                playerShip.keysMove(-1, 0);
                 System.out.println("Ship moves left");
                 break;
             case Keys.W:
                 // Ship moves up
+                playerShip.keysMove(0, -1);
                 System.out.println("Ship moves up");
                 break;
             case Keys.D:
                 // Ship moves right
+                playerShip.keysMove(1, 0);
                 System.out.println("Ship moves right");
                 break;
             case Keys.S:
                 // Ship moves down
+                playerShip.keysMove(0, 1);
                 System.out.println("Ship moves down");
                 break;
         }

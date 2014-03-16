@@ -1,10 +1,7 @@
 package com.eduardtarassov.gameworld;
 
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
-import com.eduardtarassov.nshelpers.MotionInputHandler;
 
 /**
  * Created by Eduard on 3/10/2014.
@@ -25,7 +22,7 @@ public class GameWorld {
 
     public GameWorld() {
         currentState = GameState.RUNNING;
-
+        playerShip = PlayerShip.getInstance();
     }
 
     public void update(float delta) {
@@ -51,9 +48,7 @@ public class GameWorld {
 
     public void updateRunning(float delta) {
         EntityManager.update();
-       // playerShip.update();
-        System.out.println("HUUJ");
-        MotionInputHandler.motion();
+        playerShip.update();
     }
 
    /* public void addScore(int increment) {

@@ -14,8 +14,8 @@ public class Entity {
        public TextureRegion image;
     // The tint of the image. This will also allow us to change the transparency.
     private Color color = Color.WHITE;
-    protected Vector2 position, velocity;
-    private float orientation;
+    protected Vector2 position, velocity, accelerometer;
+
     // We will use radius for circular collision detection.
     protected float radius = 20;
     // True if the entity was destroyed and should be deleted.
