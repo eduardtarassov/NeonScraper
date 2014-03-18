@@ -3,7 +3,9 @@ package com.eduardtarassov.nshelpers;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.eduardtarassov.gameobjects.PlayerShip;
+import com.eduardtarassov.gameworld.GameRenderer;
 
 import java.util.ArrayList;
 
@@ -61,9 +63,10 @@ public class TouchInputHandler implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
           //bshow pointer image on the current position
-        playerShip.bulletIsActive = true;
-        System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
-          aimDirection = new Vector2(playerShip.getPosition()).sub(screenX, screenY);
+       // playerShip.bulletIsActive = true;
+       /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
+          aimDirection = new Vector2(screenX, screenY);
+        playerShip.bulletIsActive = true; */
 
         return true;
     }
@@ -81,17 +84,21 @@ public class TouchInputHandler implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         // Update pointer image while touch is dragged
-        playerShip.bulletIsActive = true;
+       // playerShip.bulletIsActive = true;
         // Condition to the left mouse button dragged
         /*if (pointer == Input.Buttons.LEFT) {
 
             return true;
         } */
-        System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
-        aimDirection = new Vector2(playerShip.getPosition()).sub(screenX, screenY);
+       /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
+        aimDirection = new Vector2(screenX, screenY);
         //System.out.println(aimDirection.x + "     " + aimDirection.y);
+        playerShip.bulletIsActive = true;            */
 
 
+        Vector3 v3 = new Vector3(screenX, screenY, 0);
+        GameRenderer.camera.unproject(v3);
+        System.out.println(v3.x + "   " + v3.y);
         //pointerObject.draw()
         //aiming
         return true;

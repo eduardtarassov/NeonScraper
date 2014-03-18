@@ -15,10 +15,10 @@ import java.util.Random;
 public class PlayerShip extends Entity {
 
     private static PlayerShip instance;
-     public boolean bulletIsActive = false;
     private final int cooldownFrames = 6;
     private int cooldownRemaining = 0;
     private static Random rand = new Random();
+    public boolean bulletIsActive = false;
 
     public PlayerShip() {
         image = AssetLoader.player;
@@ -30,16 +30,20 @@ public class PlayerShip extends Entity {
     public void update() {
         // ship logic goes here
                  //System.out.println(TouchInputHandler.getAimDirection());
-        if (bulletIsActive){
-        Vector2 aim = TouchInputHandler.getAimDirection();
+     /*   if (bulletIsActive){
+        //Vector2 aim = TouchInputHandler.getAimDirection();
         //float aimAngle = aim.angle();
 
         //one line missing      Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
          /*float randomSpread = (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)) + (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)); //setting the spread of bullets
         aim.x += randomSpread;
         aim.y += randomSpread; */
-        EntityManager.addEntity(new Bullet(position, aim));
+       /* EntityManager.addEntity(new Bullet(TouchInputHandler.getAimDirection()));
         }
+
+        if (cooldownRemaining > 0)
+            cooldownRemaining--;
+                            */
         motionMove();
 
     }
