@@ -27,12 +27,17 @@ public class PlayerShip extends Entity {
     }
 
     public void motionMove() {
-        float deviceAccelerometerX = Gdx.input.getAccelerometerX() / 4 - 1;
-        float deviceAccelerometerY = -Gdx.input.getAccelerometerY() / 4;
+
         // System.out.println(deviceAccelerometerX  + "     " + deviceAccelerometerY);
         //accelerometer = new Vector2(deviceAccelerometerX, deviceAccelerometerY);
-        position.sub(deviceAccelerometerY, deviceAccelerometerX);
-        System.out.println(deviceAccelerometerX + "     " + deviceAccelerometerY);
+        direction = new Vector2(-Gdx.input.getAccelerometerY() / 4, Gdx.input.getAccelerometerX() / 4 - 1);
+        rotation = direction.angle();
+        System.out.println(rotation);
+        position.sub(direction.x, direction.y);
+
+        //System.out.println(deviceAccelerometerX + "     " + deviceAccelerometerY);
+
+        // Now we make it impossible for ship to move out of the corners.
         if (position.x > (408 - 40))
             position.x = 408 - 40;
         if (position.x < 0)

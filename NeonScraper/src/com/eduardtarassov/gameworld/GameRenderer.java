@@ -1,9 +1,7 @@
 package com.eduardtarassov.gameworld;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +28,7 @@ public class GameRenderer {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
     private Texture texture;
-    private Sprite sprite;
+    private Sprite player;
 
 
     // Simple game fields
@@ -40,7 +38,6 @@ public class GameRenderer {
 
     // Game Objects
     // Game Assets
-    private TextureRegion player;
     private Animation birdAnimation;
 
     // Tween stuff
@@ -77,18 +74,16 @@ public class GameRenderer {
     }
 
     private void initAssets() {
-       player = AssetLoader.player;
-    }
+       player = new Sprite(AssetLoader.player);
 
-private void drawPlayer(){
-    spriteBatch.draw(player, midPointX-20, midPointY-20);
-}
+    }
 
     public void render(float delta, float runTime) {
         // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f, 0xed / 255.0f, 0xff / 255.0f); //The same in decimal notation Gdx.gl.glClearColor(  100/255.0f, 149/255.0f, 237/255.0f, 255/255.0f);
+        Gdx.gl.glClearColor(0, 0, 0, 1); //The same in decimal notation Gdx.gl.glClearColor(  100/255.0f, 149/255.0f, 237/255.0f, 255/255.0f);
         // Clears the screen
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
 
         //shapeRenderer.begin(ShapeType.Filled);
 
@@ -98,10 +93,14 @@ private void drawPlayer(){
         //shapeRenderer.end();
         // Supposed to be in the GameRoot draw() method
         spriteBatch.begin();
-        spriteBatch.enableBlending();
-        EntityManager.draw(spriteBatch);
 
+
+        spriteBatch.disableBlending();
+
+        EntityManager.draw(spriteBatch);
+        spriteBatch.enableBlending();
                  //drawPlayer();
+
         //manager.draw(spriteBatch);
         spriteBatch.end();
 
