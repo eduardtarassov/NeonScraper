@@ -24,7 +24,7 @@ public class GameRenderer {
     private GameWorld myWorld;
    // private EntityManager manager;
     //Game configuration objects
-    private OrthographicCamera camera;
+    public static OrthographicCamera camera;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
     private Texture texture;

@@ -15,7 +15,7 @@ public class Entity {
     // The tint of the image. This will also allow us to change the transparency.
     private Color color = Color.WHITE;
     protected Vector2 position, velocity, accelerometer, direction;
-    protected float rotation;
+    protected float orientation;
 
     // We will use radius for circular collision detection.
     protected float radius = 20;
@@ -35,7 +35,11 @@ public class Entity {
     {
         //spriteBatch.draw(image, position.x, position.y, image.getRegionWidth(), image.getRegionHeight());     //NOT AS IN EXAMPLE
 
-        spriteBatch.draw(image, position.x, position.y, image.getRegionWidth()/2.0f, image.getRegionHeight()/2.0f, image.getRegionWidth(), image.getRegionHeight(), 1f, 1f, rotation + 90, false);
+        spriteBatch.draw(image, position.x, position.y, image.getRegionWidth()/2.0f, image.getRegionHeight()/2.0f, image.getRegionWidth(), image.getRegionHeight(), 1f, 1f, orientation + 90, false);
+    }
+
+    public Vector2 getPosition(){
+        return position;
     }
 }
 

@@ -6,12 +6,18 @@ import com.eduardtarassov.neonscraper.NSGame;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
 
+import java.util.Random;
+
 /**
  * Created by Eduard on 3/10/14.
  */
 public class PlayerShip extends Entity {
 
     private static PlayerShip instance;
+
+    private final int cooldownFrames = 6;
+    private int cooldownRemaining = 0;
+    private static Random rand = new Random();
 
     public PlayerShip() {
         image = AssetLoader.player;
@@ -22,6 +28,7 @@ public class PlayerShip extends Entity {
     @Override
     public void update() {
         // ship logic goes here
+        //Vector2 aim = new Vector2(position.x, position.y).)
         motionMove();
 
     }
@@ -31,8 +38,8 @@ public class PlayerShip extends Entity {
         // System.out.println(deviceAccelerometerX  + "     " + deviceAccelerometerY);
         //accelerometer = new Vector2(deviceAccelerometerX, deviceAccelerometerY);
         direction = new Vector2(-Gdx.input.getAccelerometerY() / 4, Gdx.input.getAccelerometerX() / 4 - 1);
-        rotation = direction.angle();
-        System.out.println(rotation);
+        orientation = direction.angle();
+        //System.out.println(orientation);
         position.sub(direction.x, direction.y);
 
         //System.out.println(deviceAccelerometerX + "     " + deviceAccelerometerY);

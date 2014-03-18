@@ -1,11 +1,9 @@
 package com.eduardtarassov.nshelpers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.gameobjects.PlayerShip;
-import com.eduardtarassov.gameobjects.Pointer;
 
 import java.util.ArrayList;
 
@@ -15,9 +13,7 @@ import java.util.ArrayList;
 public class TouchInputHandler implements InputProcessor {
     //private SpriteBatch spriteBatch;
      private PlayerShip playerShip;
-    public ArrayList<Pointer> touches = new ArrayList<Pointer>();
-    public Pointer pointerObject;
-
+    private Vector2 aimDirection;
     public TouchInputHandler(){
         playerShip = PlayerShip.getInstance();
     }
@@ -65,17 +61,17 @@ public class TouchInputHandler implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
           //bshow pointer image on the current position
-
-        pointerObject = new Pointer(screenX, screenY, true);
-        touches.add(pointerObject);
+          aimDirection = new Vector2(playerShip.getPosition()).sub(screenX, screenY);
+        System.out.println(aimDirection.x + "     " + aimDirection.y);
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         //dispose image of pointer from the screen
-        pointerObject = new Pointer(screenX, screenY, false);
-        touches.add(pointerObject);
+        /*pointerObject = new Pointer(screenX, screenY, false);
+        touches.add(pointerObject);                             //do we really need to add objects into touches or we can have only one object*/
+
         //stop aiming
         return true;
     }
@@ -90,9 +86,9 @@ public class TouchInputHandler implements InputProcessor {
             return true;
         } */
 
-       pointerObject = new Pointer(screenX, screenY, true);
-        touches.add(pointerObject);
-        System.out.println(pointerObject.isPressed);
+        aimDirection = new Vector2(playerShip.getPosition()).sub(screenX, screenY);
+        //System.out.println(aimDirection.x + "     " + aimDirection.y);
+        System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
 
         //pointerObject.draw()
         //aiming
