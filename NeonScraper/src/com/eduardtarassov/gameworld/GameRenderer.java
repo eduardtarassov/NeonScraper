@@ -31,24 +31,19 @@ public class GameRenderer {
     private Sprite player;
 
 
-    // Simple game fields
-    private int midPointY, midPointX;
 
 
 
     // Game Objects
     // Game Assets
-    private Animation birdAnimation;
 
     // Tween stuff
 
     // Buttons
 
-    public GameRenderer(GameWorld world, int midPointX, int midPointY) {
+    public GameRenderer(GameWorld world) {
         myWorld = world;
 
-        this.midPointX = midPointX;
-        this.midPointY = midPointY;
 
         camera = new OrthographicCamera(Constants.WIDTH, Constants.HEIGHT);
         //camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

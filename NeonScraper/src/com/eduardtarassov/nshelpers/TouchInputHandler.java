@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class TouchInputHandler implements InputProcessor {
     //private SpriteBatch spriteBatch;
      private PlayerShip playerShip;
-    private Vector2 aimDirection;
+    private static Vector2 aimDirection;
     public TouchInputHandler(){
         playerShip = PlayerShip.getInstance();
     }
@@ -61,8 +61,10 @@ public class TouchInputHandler implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
           //bshow pointer image on the current position
+        playerShip.bulletIsActive = true;
+        System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
           aimDirection = new Vector2(playerShip.getPosition()).sub(screenX, screenY);
-        System.out.println(aimDirection.x + "     " + aimDirection.y);
+
         return true;
     }
 
@@ -79,16 +81,16 @@ public class TouchInputHandler implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         // Update pointer image while touch is dragged
-
+        playerShip.bulletIsActive = true;
         // Condition to the left mouse button dragged
         /*if (pointer == Input.Buttons.LEFT) {
 
             return true;
         } */
-
+        System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
         aimDirection = new Vector2(playerShip.getPosition()).sub(screenX, screenY);
         //System.out.println(aimDirection.x + "     " + aimDirection.y);
-        System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
+
 
         //pointerObject.draw()
         //aiming
@@ -106,5 +108,9 @@ public class TouchInputHandler implements InputProcessor {
     public boolean scrolled(int amount) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    public static Vector2 getAimDirection(){
+        return aimDirection;
     }
 }
