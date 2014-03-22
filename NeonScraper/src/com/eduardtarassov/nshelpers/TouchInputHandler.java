@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class TouchInputHandler implements InputProcessor {
     //private SpriteBatch spriteBatch;
      private PlayerShip playerShip;
-    private static Vector2 aimDirection;
+    private static Vector3 aimDirection;
     public TouchInputHandler(){
         playerShip = PlayerShip.getInstance();
     }
@@ -67,6 +67,12 @@ public class TouchInputHandler implements InputProcessor {
        /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
           aimDirection = new Vector2(screenX, screenY);
         playerShip.bulletIsActive = true; */
+        playerShip.bulletIsActive = true;
+
+
+
+        aimDirection = new Vector3(screenX, screenY, 0);
+        GameRenderer.camera.unproject(aimDirection);
 
         return true;
     }
@@ -96,9 +102,10 @@ public class TouchInputHandler implements InputProcessor {
         playerShip.bulletIsActive = true;            */
 
 
-        Vector3 v3 = new Vector3(screenX, screenY, 0);
-        GameRenderer.camera.unproject(v3);
-        System.out.println(v3.x + "   " + v3.y);
+       /*  aimDirection = new Vector3(screenX, screenY, 0);
+        GameRenderer.camera.unproject(aimDirection);
+        //System.out.println(aimDirection.x + "   " + aimDirection.y);  */
+
         //pointerObject.draw()
         //aiming
         return true;
@@ -117,7 +124,7 @@ public class TouchInputHandler implements InputProcessor {
         return false;
     }
 
-    public static Vector2 getAimDirection(){
+    public static Vector3 getAimDirection(){
         return aimDirection;
     }
 }
