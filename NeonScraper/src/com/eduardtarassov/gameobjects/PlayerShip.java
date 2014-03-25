@@ -36,38 +36,61 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
-
+        //System.out.println("HEEY");
         // ship logic goes here
-                 //System.out.println(TouchInputHandler.getAimDirection());
-       if (bulletIsActive){
-        Vector2 aim = new Vector2(TouchInputHandler.getAimDirection().x, TouchInputHandler.getAimDirection().y);
-        if(aim.len2() > 0 && cooldownRemaining <= 0)  {
+        //System.out.println(TouchInputHandler.getAimDirection());
+        //
+        //
+        if (TouchInputHandler.isAiming) {
+            Vector2 aim = new Vector2(TouchInputHandler.getAimDirection().x, TouchInputHandler.getAimDirection().y);
+
+
+            if (aim.len2() > 0 && cooldownRemaining <= 0) {
+
+
+                cooldownRemaining = cooldownFrames;
+
+        /*if(aim.len2() > 0 && cooldownRemaining <= 0)  {
             cooldownRemaining = cooldownFrames;
-            float aimAngle = aim.angle();
+            float aimAngle = aim.angle(); */
+                // System.out.println("This is aimAngle: " + aimAngle);
+                //  Here it helps us to set initial position of bullets in direction we need.
+                //aimQuat.setEulerAngles(0, 0, aimAngle);
+                // float randomSpread = (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)) + (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)); //setting the spread of bullets
+                Vector2 distance = new Vector2(position.x, position.y);
+                aim.sub(distance);
+            aim.nor();
+                aim.x *= 10;
+                aim.y *= 10;
+                // Vector2 vel = MathUtil.FromPolar(aimAngle/* + randomSpread*/, 11f);
 
-            //  Here it helps us to set initial position of bullets in direction we need.
-            aimQuat.setEulerAngles(0, 0, aimAngle);
-            float randomSpread = (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)) + (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)); //setting the spread of bullets
-
-            Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 11f);
-
-                  Transform offset  = new Transform(new Vector2(25, -8), aimAngle);
-            EntityManager.addEntity(new Bullet(position, vel));
-
-           //initBulletPos.sub(aim);
-        //one line missing      Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
+                  /*Transform offset  = new Transform(new Vector2(25, -8), aimAngle); */
+                  if (TouchInputHandler.isAiming){
+                EntityManager.addEntity(new Bullet(distance, aim));
+                      TouchInputHandler.isAiming = false;
+                  }
+            /*try {
+                Thread.sleep(1000);
+            } catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            } */
+                //initBulletPos.sub(aim);
+                //one line missing      Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
 
        /* aim.x += randomSpread;
         aim.y += randomSpread;    */
-         //  System.out.println(initBulletPos.x + "      " + initBulletPos.y);
-        //EntityManager.addEntity(new Bullet(initBulletPos));
-        }
+                //  System.out.println(initBulletPos.x + "      " + initBulletPos.y);
+                //EntityManager.addEntity(new Bullet(initBulletPos));
 
+                //bulletIsActive = false;
+                // }
+
+
+           }
+        }
 
         if (cooldownRemaining > 0)
             cooldownRemaining--;
-
-       }
 
         motionMove();
 

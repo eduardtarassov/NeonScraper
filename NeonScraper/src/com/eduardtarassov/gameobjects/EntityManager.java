@@ -3,6 +3,7 @@ package com.eduardtarassov.gameobjects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class tracks for our entities, updates and draws them. Also responsible for collision detection.
@@ -44,9 +45,15 @@ public class EntityManager {
 
         // Remove any expired entities
         for (Entity item : entities){
-           if (item.isExpired)
+           if (item.isExpired)  {
                 entities.remove(item);
+           }
         }
+
+
+
+        System.out.println("SIZE " + entities.size());
+
     }
 
     public static void draw(SpriteBatch spriteBatch){

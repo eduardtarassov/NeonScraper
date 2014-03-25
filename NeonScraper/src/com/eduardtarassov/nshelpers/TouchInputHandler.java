@@ -16,6 +16,7 @@ public class TouchInputHandler implements InputProcessor {
     //private SpriteBatch spriteBatch;
      private PlayerShip playerShip;
     private static Vector3 aimDirection;
+    public static boolean isAiming = false;
     public TouchInputHandler(){
         playerShip = PlayerShip.getInstance();
     }
@@ -62,18 +63,18 @@ public class TouchInputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-          //bshow pointer image on the current position
-       // playerShip.bulletIsActive = true;
+        //bshow pointer image on the current position
+        // playerShip.bulletIsActive = true;
        /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
           aimDirection = new Vector2(screenX, screenY);
         playerShip.bulletIsActive = true; */
-        playerShip.bulletIsActive = true;
+        isAiming = true;
+        //playerShip.bulletIsActive = true;
 
 
 
         aimDirection = new Vector3(screenX, screenY, 0);
         GameRenderer.camera.unproject(aimDirection);
-
         return true;
     }
 
@@ -89,25 +90,7 @@ public class TouchInputHandler implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        // Update pointer image while touch is dragged
-       // playerShip.bulletIsActive = true;
-        // Condition to the left mouse button dragged
-        /*if (pointer == Input.Buttons.LEFT) {
 
-            return true;
-        } */
-       /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
-        aimDirection = new Vector2(screenX, screenY);
-        //System.out.println(aimDirection.x + "     " + aimDirection.y);
-        playerShip.bulletIsActive = true;            */
-
-
-       /*  aimDirection = new Vector3(screenX, screenY, 0);
-        GameRenderer.camera.unproject(aimDirection);
-        //System.out.println(aimDirection.x + "   " + aimDirection.y);  */
-
-        //pointerObject.draw()
-        //aiming
         return true;
     }
 

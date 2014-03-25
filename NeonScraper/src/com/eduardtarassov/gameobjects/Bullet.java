@@ -23,12 +23,13 @@ public class Bullet extends Entity {
 
         if (velocity.len2() > 0)
             orientation = velocity.angle();
-          System.out.println("This is velocity: " + velocity.x + "      " + velocity.y);
-        System.out.println("This is position: " + position.x + "     " + position.y);
-                position.add(velocity);
+          //System.out.println("This is velocity: " + velocity.x + "      " + velocity.y);
+       // System.out.println("This is position: " + position.x + "     " + position.y);
+                position.x += velocity.x;
+        position.y += velocity.y;
         // position.sub(velocity.x, velocity.y);
-        System.out.println("This is new position: " + position.x + "     " + position.y);
-
+       // System.out.println("This is new position: " + position.x + "     " + position.y);
+        //System.out.println("THis is bullet position: " + position.x + "      " + position.y);
         // delete bullets that go off-screen
         if ((position.x > 408 - 28) || (position.x < 0) || (position.y > 272 - 9) || position.y < 0){
             isExpired = true;
