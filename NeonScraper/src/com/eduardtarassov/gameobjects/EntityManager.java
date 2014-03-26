@@ -3,6 +3,7 @@ package com.eduardtarassov.gameobjects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -44,10 +45,18 @@ public class EntityManager {
         addedEntities.clear();
 
         // Remove any expired entities
-        for (Entity item : entities){
+        /*for (Entity item : entities){
            if (item.isExpired)  {
+
                 entities.remove(item);
            }
+        }    */
+
+        for (Iterator<Entity> it = entities.iterator(); it.hasNext(); ) {
+            Entity item = it.next();
+            if (item.isExpired) {
+                it.remove();
+            }
         }
 
 
