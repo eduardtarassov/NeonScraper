@@ -61,7 +61,7 @@ public class EntityManager {
 
 
 
-        System.out.println("SIZE " + entities.size());
+        //System.out.println("SIZE " + entities.size());
 
     }
 

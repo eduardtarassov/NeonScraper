@@ -19,7 +19,7 @@ import java.util.Random;
 public class PlayerShip extends Entity {
 
     private static PlayerShip instance;
-    private final int cooldownFrames = 6;
+    private final int cooldownFrames = 12;
     private int cooldownRemaining = 0;
 
     public boolean bulletIsActive = false;
@@ -50,23 +50,29 @@ public class PlayerShip extends Entity {
 
                 cooldownRemaining = cooldownFrames;
 
-        /*if(aim.len2() > 0 && cooldownRemaining <= 0)  {
-            cooldownRemaining = cooldownFrames;
-            float aimAngle = aim.angle(); */
-                // System.out.println("This is aimAngle: " + aimAngle);
+
+
                 //  Here it helps us to set initial position of bullets in direction we need.
                 //aimQuat.setEulerAngles(0, 0, aimAngle);
-                // float randomSpread = (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)) + (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)); //setting the spread of bullets
-                Vector2 distance = new Vector2(position.x, position.y);
-                aim.sub(distance);
+                 float randomSpread = (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)) + (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)); //setting the spread of bullets
+
+
+                Vector2 currentPos = new Vector2(position.x, position.y);
+                aim.sub(currentPos);
             aim.nor();
                 aim.x *= 10;
                 aim.y *= 10;
-                // Vector2 vel = MathUtil.FromPolar(aimAngle/* + randomSpread*/, 11f);
+
+                //System.out.println("This is aimAngle: " + aimAngle);
+                //System.out.println("This is ship orientation: " + orientation);
+                 //Vector2 vel = MathUtil.FromPolar(aimAngle/* + randomSpread*/, 11f);
 
                   /*Transform offset  = new Transform(new Vector2(25, -8), aimAngle); */
                   if (TouchInputHandler.isAiming){
-                EntityManager.addEntity(new Bullet(distance, aim));
+                EntityManager.addEntity(new Bullet(currentPos, aim));
+                                                                   //currentPos.x += 10;
+                     // EntityManager.addEntity(new Bullet(currentPos, aim));
+
                       TouchInputHandler.isAiming = false;
                   }
             /*try {
@@ -102,6 +108,7 @@ public class PlayerShip extends Entity {
         //accelerometer = new Vector2(deviceAccelerometerX, deviceAccelerometerY);
         direction = new Vector2(-Gdx.input.getAccelerometerY() / 4, Gdx.input.getAccelerometerX() / 4 - 1);
         orientation = direction.angle();
+
         //System.out.println(orientation);
         position.sub(direction.x, direction.y);
 

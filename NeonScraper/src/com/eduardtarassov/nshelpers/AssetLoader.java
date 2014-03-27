@@ -19,18 +19,16 @@ public class AssetLoader {
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
 
-        seeker = new TextureRegion(texture,0, 0, 40, 30);
+        seeker = new TextureRegion(texture, 0, 0, 20, 15);
         seeker.flip(false, true);
-        pointer = new TextureRegion(texture, 40, 0, 22, 30);
+        pointer = new TextureRegion(texture, 20, 0, 11, 16);
         pointer.flip(false, true);
-        player = new TextureRegion(texture, 62, 0, 39, 40);
+        player = new TextureRegion(texture, 31, 0, 20, 20);
         player.flip(false, true);
-        wanderer = new TextureRegion(texture, 101, 0, 40, 40);
-        wanderer.flip(false, true);
-        bullet = new TextureRegion(texture,0, 31, 28, 9);
+        bullet = new TextureRegion(texture, 51, 0, 5, 14);
         bullet.flip(false, true);
-
-
+        wanderer = new TextureRegion(texture, 56, 0, 21, 20);
+        wanderer.flip(false, true);
     }
 
     public static void dispose(){

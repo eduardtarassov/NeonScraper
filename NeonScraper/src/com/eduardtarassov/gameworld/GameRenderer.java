@@ -87,13 +87,14 @@ public class GameRenderer {
         //shapeRenderer.rect(0, 0, midPointX*2, midPointY*2);
         //shapeRenderer.end();
         // Supposed to be in the GameRoot draw() method
+        spriteBatch.enableBlending();
         spriteBatch.begin();
 
 
-        spriteBatch.disableBlending();
+        //spriteBatch.disableBlending();
 
         EntityManager.draw(spriteBatch);
-        spriteBatch.enableBlending();
+
                  //drawPlayer();
 
         //manager.draw(spriteBatch);

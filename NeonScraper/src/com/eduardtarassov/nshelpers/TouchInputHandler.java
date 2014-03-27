@@ -80,17 +80,35 @@ public class TouchInputHandler implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        //dispose image of pointer from the screen
-        /*pointerObject = new Pointer(screenX, screenY, false);
-        touches.add(pointerObject);                             //do we really need to add objects into touches or we can have only one object*/
+        //bshow pointer image on the current position
+        // playerShip.bulletIsActive = true;
+       /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
+          aimDirection = new Vector2(screenX, screenY);
+        playerShip.bulletIsActive = true; */
+        isAiming = true;
+        //playerShip.bulletIsActive = true;
 
-        //stop aiming
+
+
+        aimDirection = new Vector3(screenX, screenY, 0);
+        GameRenderer.camera.unproject(aimDirection);
         return true;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        //bshow pointer image on the current position
+        // playerShip.bulletIsActive = true;
+       /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
+          aimDirection = new Vector2(screenX, screenY);
+        playerShip.bulletIsActive = true; */
+        isAiming = true;
+        //playerShip.bulletIsActive = true;
 
+
+
+        aimDirection = new Vector3(screenX, screenY, 0);
+        GameRenderer.camera.unproject(aimDirection);
         return true;
     }
 
