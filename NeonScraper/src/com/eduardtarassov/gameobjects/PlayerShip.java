@@ -3,9 +3,6 @@ package com.eduardtarassov.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Transform;
-import com.eduardtarassov.neonscraper.NSGame;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
 import com.eduardtarassov.nshelpers.MathUtil;
@@ -36,63 +33,23 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
-        //System.out.println("HEEY");
-        // ship logic goes here
-        //System.out.println(TouchInputHandler.getAimDirection());
-        //
-        //
         if (TouchInputHandler.isAiming) {
             Vector2 aim = new Vector2(TouchInputHandler.getAimDirection().x, TouchInputHandler.getAimDirection().y);
 
-
             if (aim.len2() > 0 && cooldownRemaining <= 0) {
-
 
                 cooldownRemaining = cooldownFrames;
 
+                Vector2 startPos = new Vector2(position.x + 7, position.y + 7);
+                aim.sub(startPos);
+                aim.nor();
+                aim.scl(20);
+                 // if (TouchInputHandler.isAiming){
+                EntityManager.addEntity(new Bullet(startPos.add(aim), aim));
 
-
-                //  Here it helps us to set initial position of bullets in direction we need.
-                //aimQuat.setEulerAngles(0, 0, aimAngle);
-                 float randomSpread = (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)) + (rand.nextFloat() * (0.04f - (- 0.04f)) + (-0.04f)); //setting the spread of bullets
-
-
-                Vector2 currentPos = new Vector2(position.x, position.y);
-                aim.sub(currentPos);
-            aim.nor();
-                aim.x *= 10;
-                aim.y *= 10;
-
-                //System.out.println("This is aimAngle: " + aimAngle);
-                //System.out.println("This is ship orientation: " + orientation);
-                 //Vector2 vel = MathUtil.FromPolar(aimAngle/* + randomSpread*/, 11f);
-
-                  /*Transform offset  = new Transform(new Vector2(25, -8), aimAngle); */
-                  if (TouchInputHandler.isAiming){
-                EntityManager.addEntity(new Bullet(currentPos, aim));
-                                                                   //currentPos.x += 10;
-                     // EntityManager.addEntity(new Bullet(currentPos, aim));
 
                       TouchInputHandler.isAiming = false;
                   }
-            /*try {
-                Thread.sleep(1000);
-            } catch(InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            } */
-                //initBulletPos.sub(aim);
-                //one line missing      Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
-
-       /* aim.x += randomSpread;
-        aim.y += randomSpread;    */
-                //  System.out.println(initBulletPos.x + "      " + initBulletPos.y);
-                //EntityManager.addEntity(new Bullet(initBulletPos));
-
-                //bulletIsActive = false;
-                // }
-
-
-           }
         }
 
         if (cooldownRemaining > 0)
@@ -115,12 +72,12 @@ public class PlayerShip extends Entity {
         //System.out.println(deviceAccelerometerX + "     " + deviceAccelerometerY);
 
         // Now we make it impossible for ship to move out of the corners.
-        if (position.x > (408 - 40))
-            position.x = 408 - 40;
+        if (position.x > (408 - 20))
+            position.x = 408 - 20;
         if (position.x < 0)
             position.x = 0;
-        if (position.y > (272 - 40))
-            position.y = 272 - 40;
+        if (position.y > (272 - 20))
+            position.y = 272 - 20;
         if (position.y < 0)
             position.y = 0;
     }
