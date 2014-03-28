@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 /**
  * Created by Eduard on 3/10/14.
@@ -14,7 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 public class Entity {
        public TextureRegion image;
     // The tint of the image. This will also allow us to change the transparency.
-    private Color color = Color.WHITE;
+    protected Color color = Color.WHITE;
     protected Vector2 position;
     protected Vector2 velocity, accelerometer, direction;
     protected float orientation;
