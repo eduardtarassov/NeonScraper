@@ -12,6 +12,8 @@ import java.util.Random;
 
 /**
  * Created by Eduard on 3/10/14.
+ *  This class is responsible for playerShip object properties (position, velocity, ...).
+ *  Also for bullet creation and behaviour.
  */
 public class PlayerShip extends Entity {
 
@@ -33,43 +35,48 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
+        // When player touches the screen, TouchInputHandler class sets the variable isAiming = true.
         if (TouchInputHandler.isAiming) {
+            //Creating an Vector2 object which takes coordinates from user input on the screen.
             Vector2 aim = new Vector2(TouchInputHandler.getAimDirection().x, TouchInputHandler.getAimDirection().y);
 
+            // Checking if aim is real value.
+            // Waiting for the delay between previous and next bullet launched.
             if (aim.len2() > 0 && cooldownRemaining <= 0) {
-
+                //cooldownFrames if final static value equal to 6.
+                // So loop will go through 6 times before next bullet.
                 cooldownRemaining = cooldownFrames;
-
+                // Taking the current position of the ship and applying it to the start position of the bullet.
                 Vector2 startPos = new Vector2(position.x + 7, position.y + 7);
+                // Subtracting current bullet position from the aim position and getting direction vector.
                 aim.sub(startPos);
+                // Normalizing the aim (bullet direction) vector, so the sum of scalars of vector = 1;
                 aim.nor();
+                // Multiplying this vector by a scalar and setting the movement 20 times faster.
                 aim.scl(20);
-                 // if (TouchInputHandler.isAiming){
+
+                // Adding new entity with the bullet start position and direction where it has to move.
+                // startPos.add(aim) allows us to set the radius around the ship, where the initial position of the bullet will be.
                 EntityManager.addEntity(new Bullet(startPos.add(aim), aim));
 
-
-                      TouchInputHandler.isAiming = false;
-                  }
+                // After bullet has been launched, set isAiming to false.
+                TouchInputHandler.isAiming = false;
+            }
         }
-
+        // Decreasing cooldown Remaining in every loop until it will be equal 0 and bullet'll be ready again.
         if (cooldownRemaining > 0)
             cooldownRemaining--;
 
+        // Method that is responsible for player movement.
         motionMove();
 
     }
 
     public void motionMove() {
-
-        // System.out.println(deviceAccelerometerX  + "     " + deviceAccelerometerY);
-        //accelerometer = new Vector2(deviceAccelerometerX, deviceAccelerometerY);
         direction = new Vector2(-Gdx.input.getAccelerometerY() / 4, Gdx.input.getAccelerometerX() / 4 - 1);
         orientation = direction.angle();
 
-        //System.out.println(orientation);
         position.sub(direction.x, direction.y);
-
-        //System.out.println(deviceAccelerometerX + "     " + deviceAccelerometerY);
 
         // Now we make it impossible for ship to move out of the corners.
         if (position.x > (408 - 20))

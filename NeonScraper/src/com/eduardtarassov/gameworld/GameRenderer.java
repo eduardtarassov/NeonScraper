@@ -96,7 +96,7 @@ public class GameRenderer {
         EntityManager.draw(spriteBatch);
 
                  //drawPlayer();
-
+        spriteBatch.disableBlending();
         //manager.draw(spriteBatch);
         spriteBatch.end();
 
