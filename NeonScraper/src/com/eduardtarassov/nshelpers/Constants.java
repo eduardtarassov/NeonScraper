@@ -8,5 +8,7 @@ public class Constants {
     public static final float VIEWPORT = 0.5f;
     public static final int WIDTH = 408;
      public static int HEIGHT = 272;
+    public static int ANDROID_WIDTH = 1280;
+    public static int ANDROID_HEIGHT = 720;
 
 }

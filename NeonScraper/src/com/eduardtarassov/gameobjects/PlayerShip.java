@@ -3,6 +3,7 @@ package com.eduardtarassov.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
+import com.eduardtarassov.gameworld.GameRenderer;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
 import com.eduardtarassov.nshelpers.MathUtil;
@@ -35,6 +36,10 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
+
+        System.out.println("This is your Width: " + Gdx.graphics.getWidth());
+        System.out.println("This is your Height: " + Gdx.graphics.getHeight());
+
         // When player touches the screen, TouchInputHandler class sets the variable isAiming = true.
         if (TouchInputHandler.isAiming) {
             //Creating an Vector2 object which takes coordinates from user input on the screen.
@@ -63,7 +68,7 @@ public class PlayerShip extends Entity {
                 TouchInputHandler.isAiming = false;
             }
         }
-        // Decreasing cooldown Remaining in every loop until it will be equal 0 and bullet'll be ready again.
+        // Decreasing cooldown Remaining in every loop until it will be equal 0 and bullet will be ready again.
         if (cooldownRemaining > 0)
             cooldownRemaining--;
 
