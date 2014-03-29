@@ -1,7 +1,9 @@
 package com.eduardtarassov.gameworld;
 
 import com.eduardtarassov.gameobjects.EntityManager;
+import com.eduardtarassov.gameobjects.Grid;
 import com.eduardtarassov.gameobjects.PlayerShip;
+import com.eduardtarassov.nshelpers.Constants;
 
 /**
  * Created by Eduard on 3/10/2014.
@@ -23,6 +25,7 @@ public class GameWorld {
     public GameWorld() {
         currentState = GameState.RUNNING;
         playerShip = PlayerShip.getInstance();
+        Grid.setInstance(0, 0, Constants.WIDTH, Constants.HEIGHT);
     }
 
     public void update(float delta) {

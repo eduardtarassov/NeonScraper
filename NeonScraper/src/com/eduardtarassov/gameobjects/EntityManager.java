@@ -1,6 +1,7 @@
 package com.eduardtarassov.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.eduardtarassov.nshelpers.Constants;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,9 +16,8 @@ public class EntityManager {
     private static boolean isUpdating;
     private static ArrayList<Entity> addedEntities = new ArrayList<Entity>(); // In example author uses List
 
-    /*
-    * This
-    */
+
+
     public static int getEntitiesSize() {
         return entities.size();
     }
@@ -27,6 +27,8 @@ public class EntityManager {
             entities.add(entity);
         else
             addedEntities.add(entity);
+
+            Grid.setObjectAt(entity.position.x, entity.position.y, true);
     }
 
     public static void update(){

@@ -3,9 +3,6 @@ package com.eduardtarassov.gameobjects;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Color;
-import com.eduardtarassov.nshelpers.Constants;
-import com.sun.javafx.css.Size;
-import com.sun.prism.image.ViewPort;
 
 /**
  * Created by Eduard on 28/03/14.

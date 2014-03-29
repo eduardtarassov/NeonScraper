@@ -9,17 +9,19 @@ import java.util.Random;
  * Created by Eduard on 29/03/14.
  */
 public class Grid {
-    public GridUnit[][] gridUnits;
-    static final int GRID_WIDTH = 12;
-    static final int GRID_HEIGHT = 12;
-    int gridLeft;
-    int gridTop;
-    int gridBottom;
-    int gridRight;
+    private static GridUnit[][] gridUnits;
+                  public static Grid instance;
+    private static final int GRID_WIDTH = 12;
+    private static final int GRID_HEIGHT = 12;
+    private static int gridLeft;
+    private static int gridTop;
+    private static int gridBottom;
+    private static int gridRight;
 
-    int gridColumns;
-    int gridRows;
-    public Grid(int playAreaLeft,int playAreaTop,int playAreaRight,int playAreaBottom){
+    private static int gridColumns;
+    private static int gridRows;
+
+    public static void setInstance(int playAreaLeft,int playAreaTop,int playAreaRight,int playAreaBottom){
         gridLeft=playAreaLeft;
         gridRight=playAreaRight;
         gridTop = playAreaTop;
@@ -38,17 +40,17 @@ public class Grid {
 
     }
 
-    public void SetObjectAt(int x,int y, boolean type){
-        int yindex = (x-gridLeft)/GRID_WIDTH;
-        int xindex = (y-gridTop)/GRID_HEIGHT;
+    public static void setObjectAt(float x, float y, boolean type){
+        int yindex = (int)(x-gridLeft)/GRID_WIDTH;    //MISTAKES HERE!!!
+        int xindex = (int)(y-gridTop)/GRID_HEIGHT;
         gridUnits[xindex][yindex].objectType = type;
     }
 
-    public void RemoveObjectAt(int x,int y){
-        SetObjectAt(x, y, false);
+    public static void RemoveObjectAt(int x,int y){
+        setObjectAt(x, y, false);
     }
 
-    public Vector2 GetRandomIndex(){
+    public static Vector2 GetRandomIndex(){
         Random r=new Random();
         while(true){
             int y=r.nextInt(gridColumns);
@@ -58,7 +60,16 @@ public class Grid {
         }
     }
 
-    public boolean getCellEmpty(int gx,int gy){
+    public static boolean getCellEmpty(int gx,int gy){
         return gridUnits[gx][gy].objectType;
+    }
+
+
+    public static Grid getInstance(){
+        if (instance != null)
+            return instance;
+        else {System.out.println("YOUR GRID OBJECT IS NULL!!!!");
+        return null;
+        }
     }
 }
