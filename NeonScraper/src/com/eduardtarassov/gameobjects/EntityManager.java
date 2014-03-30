@@ -28,7 +28,7 @@ public class EntityManager {
         else
             addedEntities.add(entity);
 
-            Grid.setObjectAt(entity.position.x, entity.position.y, true);
+            Grid.setObjectAt(entity.position.x, entity.position.y);
     }
 
     public static void update(){

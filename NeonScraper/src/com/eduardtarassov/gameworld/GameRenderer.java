@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.eduardtarassov.gameobjects.EntityManager;
+import com.eduardtarassov.gameobjects.Grid;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
@@ -29,7 +30,6 @@ public class GameRenderer {
     private SpriteBatch spriteBatch;
     private Texture texture;
     private Sprite player;
-
 
 
 
@@ -79,15 +79,23 @@ public class GameRenderer {
         // Clears the screen
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+      shapeRenderer.begin(ShapeType.Line);
+        for (int x = 1; x <= Grid.GRID_COLUMNS; x++){
+            shapeRenderer.line(x*Grid.gridDividedColumns, 0, x*Grid.gridDividedColumns, Constants.HEIGHT, Color.GREEN, Color.GREEN);
+        }
 
+        for (int x = 1; x <= Grid.GRID_ROWS; x++){
+            shapeRenderer.line(0, x*Grid.gridDividedRows, Constants.WIDTH, x*Grid.gridDividedRows, Color.GREEN, Color.GREEN);
+        }
+        shapeRenderer.end();
         //shapeRenderer.begin(ShapeType.Filled);
 
-        // Draw Background color
-       // shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
-        //shapeRenderer.rect(0, 0, midPointX*2, midPointY*2);
-        //shapeRenderer.end();
-        // Supposed to be in the GameRoot draw() method
-        spriteBatch.enableBlending();
+                      // Draw Background color
+                      // shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
+                      //shapeRenderer.rect(0, 0, midPointX*2, midPointY*2);
+                      //shapeRenderer.end();
+                      // Supposed to be in the GameRoot draw() method
+                      spriteBatch.enableBlending();
         spriteBatch.begin();
 
 

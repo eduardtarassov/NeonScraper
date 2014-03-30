@@ -7,27 +7,24 @@ import java.util.Random;
 
 /**
  * Created by Eduard on 29/03/14.
+ * This class is responsible for creation of grid of GridUnits, and setting the size of it.
  */
 public class Grid {
     private static GridUnit[][] gridUnits;
-    public static Grid instance;
-    private static int gridDividedColumns;
-    private static int gridDividedRows;
-
-            private static int gridWidth;
+    public static int gridDividedColumns;
+    public static int gridDividedRows;
+    private static int gridWidth;
     private static int gridHeight;
-    private static final int GRID_COLUMNS = 12;
-    private static final int GRID_ROWS = 12;
+    public static final int GRID_COLUMNS = 12;
+    public static final int GRID_ROWS = 8;
 
 
     public static void setInstance(int playAreaLeft, int playAreaTop, int playAreaRight, int playAreaBottom) {
 
-        //gridColumns=(Math.abs(playAreaRight-playAreaLeft)/GRID_WIDTH);
-        //gridRows=(Math.abs(playAreaBottom-playAreaTop)/GRID_HEIGHT);
         gridWidth = playAreaRight - playAreaLeft;
         gridHeight = playAreaBottom - playAreaTop;
-       gridDividedColumns = gridWidth / GRID_COLUMNS;
-       gridDividedRows = gridHeight / GRID_ROWS;
+        gridDividedColumns = gridWidth / GRID_COLUMNS;
+        gridDividedRows = gridHeight / GRID_ROWS;
 
         gridUnits = new GridUnit[GRID_COLUMNS][GRID_ROWS];
         for (int i = 0; i < GRID_COLUMNS; i++) {
@@ -63,18 +60,12 @@ public class Grid {
         }
     }
 
-    //!!!!!!!!!!!!!!
-    public static boolean getCellEmpty(int gx, int gy) {
-        return gridUnits[gx][gy].objectType;
-    }
-
-
-    public static Grid getInstance() {
+/*    public static Grid getInstance() {
         if (instance != null)
             return instance;
         else {
             System.out.println("YOUR GRID OBJECT IS NULL!!!!");
             return null;
         }
-    }
+    }*/
 }
