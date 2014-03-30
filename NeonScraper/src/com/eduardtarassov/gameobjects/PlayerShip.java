@@ -36,9 +36,11 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
+        /*currentCell = Grid.getCurrentCell((int) position.x, (int) position.y);
+        System.out.println("This is your CurrentCell: " + currentCell); */
 
-        System.out.println("This is your Width: " + Gdx.graphics.getWidth());
-        System.out.println("This is your Height: " + Gdx.graphics.getHeight());
+        // System.out.println("This is your Width: " + Gdx.graphics.getWidth());
+        // System.out.println("This is your Height: " + Gdx.graphics.getHeight());
 
         // When player touches the screen, TouchInputHandler class sets the variable isAiming = true.
         if (TouchInputHandler.isAiming) {
@@ -92,6 +94,8 @@ public class PlayerShip extends Entity {
             position.y = 272 - 20;
         if (position.y < 0)
             position.y = 0;
+
+             updateCell();
     }
 
     public void keysMove(int moveToX, int moveToY) {

@@ -38,15 +38,15 @@ public class Grid {
     }
 
     public static void setObjectAt(float x, float y) {
-        int yindex = (int) x / gridDividedColumns;
-        int xindex = (int) y / gridDividedRows;
+        int xindex = (int) x / gridDividedColumns;
+        int yindex = (int) y / gridDividedRows;
          if (!gridUnits[xindex][yindex].objectType)
         gridUnits[xindex][yindex].objectType = true;
     }
 
     public static void RemoveObjectAt(int x, int y) {
-        int yindex = (int) x / gridDividedColumns;
-        int xindex = (int) y / gridDividedRows;
+        int xindex = x / gridDividedColumns;
+        int yindex = y / gridDividedRows;
         if (gridUnits[xindex][yindex].objectType)
             gridUnits[xindex][yindex].objectType = false;
     }
@@ -60,12 +60,13 @@ public class Grid {
         }
     }
 
-/*    public static Grid getInstance() {
-        if (instance != null)
-            return instance;
-        else {
-            System.out.println("YOUR GRID OBJECT IS NULL!!!!");
-            return null;
-        }
-    }*/
+    public static int getCurrentCell(int x, int y){
+        // Counting on which column is the element.
+        int xindex = x / gridDividedColumns;
+        // Counting on which row is the element.
+        int yindex = y / gridDividedRows;
+        // Returning exactly the index of cell.
+        return yindex * GRID_ROWS + xindex;
+    }
+
 }
