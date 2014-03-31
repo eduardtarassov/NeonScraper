@@ -49,5 +49,37 @@ public class Enemy extends Entity {
         }
     }
 
+    protected void moveInASquare(){
+        final int framesPerSide = 30;
+        while (true){
+            // Move right for 30 frames
+            for (int i = 0; i < framesPerSide; i++){
+                velocity = new Vector2(1, 0);
+                Thread.yield();
+            }
+
+            //Move down for 30 frames
+            for (int i = 0; i < framesPerSide; i++)
+            {
+                velocity = new Vector2(0, -1);
+                Thread.yield();
+            }
+
+            //Move left for 30 frames
+            for (int i = 0; i < framesPerSide; i++)
+            {
+                velocity = new Vector2(-1, 0);
+                Thread.yield();
+            }
+
+            //Move up for 30 frames
+            for (int i = 0; i < framesPerSide; i++)
+            {
+                velocity = new Vector2(0, 1);
+                Thread.yield();
+            }
+        }
+    }
+
 }
 
