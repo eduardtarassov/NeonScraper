@@ -9,11 +9,12 @@ import com.badlogic.gdx.graphics.Color;
  */
 public class Enemy extends Entity {
     private int timeUntilStart = 60;
-    public boolean isActive(){
+
+    public boolean isActive() {
         return timeUntilStart <= 0;
     }
 
-    public Enemy(TextureRegion image, Vector2 position){
+    public Enemy(TextureRegion image, Vector2 position) {
         this.image = image;
         this.position = position;
         radius = image.getRegionWidth() / 2.0f;
@@ -21,27 +22,32 @@ public class Enemy extends Entity {
     }
 
     @Override
-    public void update(){
-        if (timeUntilStart <= 0)
-        {
+    public void update() {
+        if (timeUntilStart <= 0) {
             //enemy behaviour logic goes here.
-        }
-        else
-        {
+        } else {
             timeUntilStart--;
             //color = Color.WHITE * (1 - timeUntilStart / 60f);
         }
 
         position.add(velocity);
-       // position.clamp(Constants.VIEWPORT / 2, );
-            velocity.x *= 0.8f;
-            velocity.y *= 0.8f;
+        // position.clamp(Constants.VIEWPORT / 2, );   //WTF WAS CODE HERE!!!!
+        velocity.scl(0.8f);
 
     }
 
-    public void wasShot()
-    {
+    protected void wasShot() {
         isExpired = true;
     }
+
+    protected void followPlayer() {
+        while (true) {
+            velocity.add(PlayerShip.instance.position.sub(position).scl(acceleration));
+            if (velocity != Vector2.Zero)
+                orientation = velocity.angle();
+            Thread.yield();
+        }
+    }
+
 }
 

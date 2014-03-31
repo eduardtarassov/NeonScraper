@@ -68,5 +68,4 @@ public class Grid {
         // Returning exactly the index of cell.
         return yindex * GRID_ROWS + xindex;
     }
-
 }

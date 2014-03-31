@@ -18,6 +18,7 @@ public class Entity {
     protected Vector2 velocity, accelerometer, direction;
     protected float orientation;
 protected int currentCell;
+    protected float acceleration = 10;
 
     // We will use radius for circular collision detection.
     protected float radius = 20;

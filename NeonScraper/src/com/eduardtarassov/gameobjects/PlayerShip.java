@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class PlayerShip extends Entity {
 
-    private static PlayerShip instance;
+    public static PlayerShip instance;
     private final int cooldownFrames = 12;
     private int cooldownRemaining = 0;
 

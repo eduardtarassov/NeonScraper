@@ -24,19 +24,15 @@ public class Bullet extends Entity {
         velocity.scl(10);
         if (velocity.len2() > 0)
             orientation = velocity.angle();
-          //System.out.println("This is velocity: " + velocity.x + "      " + velocity.y);
-       // System.out.println("This is position: " + position.x + "     " + position.y);
                 position.add(velocity);
-        // position.sub(velocity.x, velocity.y);
-       // System.out.println("This is new position: " + position.x + "     " + position.y);
-        //System.out.println("THis is bullet position: " + position.x + "      " + position.y);
-        // delete bullets that go off-screen
-                   updateCell();
+        // delete bullets which go off-screen
 
         if ((position.x > 408) || (position.x < 0) || (position.y > 272) || position.y < 0){
             isExpired = true;
 
         }
+        else
+        updateCell();
     }
 
 }
