@@ -12,19 +12,27 @@ import java.util.List;
  * Created by Eduard on 3/10/14.
  */
 public class EntityManager {
-    private static ArrayList<Entity> entities = new ArrayList<Entity>();   // In example author uses List
+    //private static ArrayList<Entity> entities = new ArrayList<Entity>();
     private static boolean isUpdating;
-    private static ArrayList<Entity> addedEntities = new ArrayList<Entity>(); // In example author uses List
+    private static ArrayList<Entity> addedEntities = new ArrayList<Entity>();
+    private static ArrayList<Entity> enemies = new ArrayList<Entity>();
+    private static ArrayList<Entity> bullets = new ArrayList<Entity>();
+    private static Entity player = new Entity();
 
 
 
-    public static int getEntitiesSize() {
+    /*public static int getEntitiesSize() {
         return entities.size();
-    }
+    }   */
 
     public static void addEntity(Entity entity){
         if (!isUpdating)
-            entities.add(entity);
+            if (entity.getClass().equals(Bullet.class))
+                bullets.add(entity);
+            else if (entity.getClass().equals(Enemy.class))
+            enemies.add(entity);
+            else
+                player = entity;
         else
             addedEntities.add(entity);
 
@@ -34,41 +42,50 @@ public class EntityManager {
     public static void update(){
         isUpdating = true;
 
-        for(Entity item : entities)
+        for(Entity item : bullets)
             item.update();
+
+        for(Entity item : enemies)
+            item.update();
+
+        player.update();
 
         isUpdating = false;
 
         // Add all the new arrival entities into the arraylist of entities
         for (Entity item : addedEntities){
-            entities.add(item);
+            if (item.getClass().equals(Bullet.class))
+                bullets.add(item);
+            else if (item.getClass().equals(Enemy.class))
+                enemies.add(item);
+            else
+                player = item;
         }
 
         addedEntities.clear();
 
-        // Remove any expired entities
-        /*for (Entity item : entities){
-           if (item.isExpired)  {
-
-                entities.remove(item);
-           }
-        }    */
-
-        for (Iterator<Entity> it = entities.iterator(); it.hasNext(); ) {
+        // Remove any expired bullet entities
+        for (Iterator<Entity> it = bullets.iterator(); it.hasNext(); ) {
             Entity item = it.next();
             if (item.isExpired) {
                 it.remove();
             }
         }
 
-
-
-        //System.out.println("SIZE " + entities.size());
-
+        // Remove any expired enemy entities
+        for (Iterator<Entity> it = enemies.iterator(); it.hasNext(); ) {
+            Entity item = it.next();
+            if (item.isExpired) {
+                it.remove();
+            }
+        }
     }
 
     public static void draw(SpriteBatch spriteBatch){
-        for (Entity item : entities)
+        for (Entity item : bullets)
             item.draw(spriteBatch);
+        for (Entity item : enemies)
+            item.draw(spriteBatch);
+        player.draw(spriteBatch);
     }
 }
