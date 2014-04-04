@@ -31,7 +31,7 @@ public class Enemy extends Entity {
         this.position = position;
         radius = image.getRegionWidth() / 2.0f;
         color = Color.CLEAR; //!!!!! I am not sure this is gonna be transparent one.
-
+         this.velocity = new Vector2(0, 0);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Enemy extends Entity {
     */
     public static Enemy createWanderer(Vector2 position){
         Enemy enemy = new Enemy(AssetLoader.wanderer, position);
-        enemy.addBehaviour(enemy.moveRandomly());
+       // enemy.addBehaviour(enemy.moveRandomly());
         return enemy;
     }
 

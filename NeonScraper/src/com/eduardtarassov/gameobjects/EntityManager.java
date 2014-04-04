@@ -14,7 +14,7 @@ public class EntityManager {
     //private static ArrayList<Entity> entities = new ArrayList<Entity>();
     private static boolean isUpdating;
     private static ArrayList<Entity> addedEntities = new ArrayList<Entity>();
-    private static ArrayList<Entity> enemies = new ArrayList<Entity>();
+    public static ArrayList<Entity> enemies = new ArrayList<Entity>();
     private static ArrayList<Entity> bullets = new ArrayList<Entity>();
     private static Entity player = new Entity();
 

@@ -115,6 +115,7 @@ public class PlayerShip extends Entity {
     public void kill()
     {
         framesUntilRespawn = 60;
+        EnemySpawner.reset();
     }
 
     /*

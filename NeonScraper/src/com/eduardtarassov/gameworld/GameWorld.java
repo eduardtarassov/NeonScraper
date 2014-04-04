@@ -1,5 +1,6 @@
 package com.eduardtarassov.gameworld;
 
+import com.eduardtarassov.gameobjects.EnemySpawner;
 import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.nshelpers.Constants;
@@ -50,6 +51,7 @@ public class GameWorld {
     public void updateRunning(float delta) {
         EntityManager.update();
         playerShip.update();
+        EnemySpawner.update();
     }
 
    /* public void addScore(int increment) {
