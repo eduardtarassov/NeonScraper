@@ -1,6 +1,7 @@
 package com.eduardtarassov.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.nshelpers.Constants;
 
 import java.util.ArrayList;
@@ -87,5 +88,10 @@ public class EntityManager {
         for (Entity item : enemies)
             item.draw(spriteBatch);
         player.draw(spriteBatch);
+    }
+
+    private static boolean isColliding(Entity a, Entity b){
+      float radius = a.radius + b.radius;
+        return !a.isExpired && !b.isExpired && new Vector2(a.position).sub(b.position).len2() < radius * radius;
     }
 }
