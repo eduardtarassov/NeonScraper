@@ -1,6 +1,7 @@
 package com.eduardtarassov.gameobjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.gameworld.GameRenderer;
@@ -21,12 +22,7 @@ public class PlayerShip extends Entity {
     public static PlayerShip instance;
     private final int cooldownFrames = 12;
     private int cooldownRemaining = 0;
-
-    public boolean bulletIsActive = false;
-
-    //Creating an object of structure responsible for rotation in three dimensions.
-    private static Quaternion aimQuat = new Quaternion();
-    private static Random rand = new Random();
+    private int framesUntilRespawn = 0;
 
     public PlayerShip() {
         image = AssetLoader.player;
@@ -36,11 +32,13 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
-        /*currentCell = Grid.getCurrentCell((int) position.x, (int) position.y);
-        System.out.println("This is your CurrentCell: " + currentCell); */
 
-        // System.out.println("This is your Width: " + Gdx.graphics.getWidth());
-        // System.out.println("This is your Height: " + Gdx.graphics.getHeight());
+        if (isDead()){
+            framesUntilRespawn--;
+            return;
+        }
+        else
+
 
         // When player touches the screen, TouchInputHandler class sets the variable isAiming = true.
         if (TouchInputHandler.isAiming) {
@@ -94,8 +92,6 @@ public class PlayerShip extends Entity {
             position.y = 272 - 20;
         if (position.y < 0)
             position.y = 0;
-
-             updateCell();
     }
 
     public void keysMove(int moveToX, int moveToY) {
@@ -103,11 +99,29 @@ public class PlayerShip extends Entity {
         position.y += moveToY;
     }
 
+    @Override
+    public void draw(SpriteBatch spriteBatch){
+        if (!isDead())
+            super.draw(spriteBatch);
+    }
+
     public static PlayerShip getInstance() {
         if (instance == null)
             instance = new PlayerShip();
 
         return instance;
+    }
+
+    public void kill()
+    {
+        framesUntilRespawn = 60;
+    }
+
+    /*
+    * This getter method checks is player ship dead and waiting for respawn.
+    */
+    public boolean isDead(){
+        return framesUntilRespawn > 0;
     }
 
 }

@@ -2,11 +2,9 @@ package com.eduardtarassov.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.eduardtarassov.nshelpers.Constants;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * This class tracks for our entities, updates and draws them. Also responsible for collision detection.
@@ -36,8 +34,6 @@ public class EntityManager {
                 player = entity;
         else
             addedEntities.add(entity);
-
-            Grid.setObjectAt(entity.position.x, entity.position.y);
     }
 
     public static void update(){
@@ -55,9 +51,9 @@ public class EntityManager {
 
         // Add all the new arrival entities into the arraylist of entities
         for (Entity item : addedEntities){
-            if (item.getClass().equals(Bullet.class))
+            if (item instanceof Bullet)
                 bullets.add(item);
-            else if (item.getClass().equals(Enemy.class))
+            else if (item instanceof Enemy)
                 enemies.add(item);
             else
                 player = item;
@@ -94,4 +90,38 @@ public class EntityManager {
       float radius = a.radius + b.radius;
         return !a.isExpired && !b.isExpired && new Vector2(a.position).sub(b.position).len2() < radius * radius;
     }
+
+    private static void handleCollisions(){
+        // Handles collisions between enemies
+        for (int i = 0; i < enemies.size(); i++){
+            for (int j = i + 1; j < enemies.size(); j++){
+                if (isColliding(enemies.get(i), enemies.get(j))){
+                    ((Enemy) enemies.get(i)).handleCollision(enemies.get(j));
+                    ((Enemy) enemies.get(j)).handleCollision(enemies.get(i));
+                }
+            }
+        }
+
+        // Handles collisions between bullets and enemies
+        for (int i = 0; i < enemies.size(); i++){
+            for (int j = 0; j < bullets.size(); j++){
+                if (isColliding(enemies.get(i), bullets.get(j))){
+                    ((Enemy) enemies.get(i)).wasShot();
+                    ((Bullet) bullets.get(j)).isExpired = true;
+                }
+            }
+        }
+
+        // Handles collisions between the player and enemies
+        for (int i = 0; i < enemies.size(); i++){
+            if (((Enemy) enemies.get(i)).isActive() && isColliding(PlayerShip.instance, enemies.get(i))){
+                PlayerShip.instance.kill();
+                for (Entity item : enemies)
+                    ((Enemy) item).wasShot();
+                break;
+            }
+        }
+    }
+
+
 }

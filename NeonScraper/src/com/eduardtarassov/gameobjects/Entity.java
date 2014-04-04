@@ -1,7 +1,6 @@
 package com.eduardtarassov.gameobjects;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -39,16 +38,6 @@ protected int currentCell;
         //spriteBatch.draw(image, position.x, position.y, image.getRegionWidth(), image.getRegionHeight());     //NOT AS IN EXAMPLE
 
         spriteBatch.draw(image, position.x, position.y, image.getRegionWidth()/2.0f, image.getRegionHeight()/2.0f, image.getRegionWidth(), image.getRegionHeight(), 1f, 1f, orientation + 90, false);
-    }
-
-    public void updateCell(){
-        int newCurrentCell = Grid.getCurrentCell((int) position.x, (int) position.y);
-        if (newCurrentCell != currentCell){
-            Grid.RemoveObjectAt((int) position.x, (int) position.y);
-            Grid.setObjectAt(position.x, position.y);
-            currentCell = newCurrentCell;
-            System.out.println("HOLA");
-        }
     }
 
     public Vector2 getPosition(){

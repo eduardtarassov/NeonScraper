@@ -159,14 +159,16 @@ public class Enemy extends Entity {
     }
 
     /*
-    * This method will push the current enemy away from the other enemy.
-    * The closer they are, the harder it will be pushed, because the magnitude of (d / d.LengthSquared()) is just one over the distance.
-    */
-    public void handleCollision(Enemy other){
+  * This method will push the current enemy away from the other enemy.
+  * The closer they are, the harder it will be pushed, because the magnitude of (d / d.LengthSquared()) is just one over the distance.
+  */
+    public void handleCollision(Entity other){
         Vector2 d = position.sub(other.position);
 
         velocity.add(d.scl(10).scl(1 / (d.len2() + 1)));
     }
+
+
 
 }
 

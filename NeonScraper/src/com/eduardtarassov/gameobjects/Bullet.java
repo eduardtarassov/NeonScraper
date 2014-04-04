@@ -31,8 +31,6 @@ public class Bullet extends Entity {
             isExpired = true;
 
         }
-        else
-        updateCell();
     }
 
 }
