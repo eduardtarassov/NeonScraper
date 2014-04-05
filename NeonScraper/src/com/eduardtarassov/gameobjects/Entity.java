@@ -16,8 +16,8 @@ public class Entity {
     protected Vector2 position;
     protected Vector2 velocity, accelerometer, direction;
     protected float orientation;
-protected int currentCell;
     protected float acceleration = 10;
+    protected int timeUntilStart = 60;
 
     // We will use radius for circular collision detection.
     protected float radius = 20;
@@ -42,6 +42,24 @@ protected int currentCell;
 
     public Vector2 getPosition(){
         return position;
+    }
+
+    /*
+* This method will push the current enemy away from the other enemy.
+* The closer they are, the harder it will be pushed, because the magnitude of (d / d.LengthSquared()) is just one over the distance.
+*/
+    public void handleCollision(Entity other){
+        Vector2 d = position.sub(other.position);
+
+        velocity.add(d.scl(10).scl(1 / (d.len2() + 1)));
+    }
+
+    public void wasShot() {
+        isExpired = true;
+    }
+
+    public boolean isActive() {
+        return timeUntilStart <= 0;
     }
 }
 

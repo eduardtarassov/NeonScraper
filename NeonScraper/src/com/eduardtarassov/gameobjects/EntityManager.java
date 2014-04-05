@@ -28,7 +28,7 @@ public class EntityManager {
         if (!isUpdating)
             if (entity.getClass().equals(Bullet.class))
                 bullets.add(entity);
-            else if (entity.getClass().equals(Enemy.class))
+            else if ((entity instanceof Seeker) || (entity instanceof Wanderer))
             enemies.add(entity);
             else
                 player = entity;
@@ -53,7 +53,7 @@ public class EntityManager {
         for (Entity item : addedEntities){
             if (item instanceof Bullet)
                 bullets.add(item);
-            else if (item instanceof Enemy)
+            else if ((item instanceof Seeker) || (item instanceof Wanderer))
                 enemies.add(item);
             else
                 player = item;
@@ -96,8 +96,8 @@ public class EntityManager {
         for (int i = 0; i < enemies.size(); i++){
             for (int j = i + 1; j < enemies.size(); j++){
                 if (isColliding(enemies.get(i), enemies.get(j))){
-                    ((Enemy) enemies.get(i)).handleCollision(enemies.get(j));
-                    ((Enemy) enemies.get(j)).handleCollision(enemies.get(i));
+                    enemies.get(i).handleCollision(enemies.get(j));
+                    enemies.get(j).handleCollision(enemies.get(i));
                 }
             }
         }
@@ -106,7 +106,7 @@ public class EntityManager {
         for (int i = 0; i < enemies.size(); i++){
             for (int j = 0; j < bullets.size(); j++){
                 if (isColliding(enemies.get(i), bullets.get(j))){
-                    ((Enemy) enemies.get(i)).wasShot();
+                    enemies.get(i).wasShot();
                     ((Bullet) bullets.get(j)).isExpired = true;
                 }
             }
@@ -114,14 +114,16 @@ public class EntityManager {
 
         // Handles collisions between the player and enemies
         for (int i = 0; i < enemies.size(); i++){
-            if (((Enemy) enemies.get(i)).isActive() && isColliding(PlayerShip.instance, enemies.get(i))){
+            if (((enemies.get(i)).isActive()) && (isColliding(PlayerShip.instance, enemies.get(i)))){
                 PlayerShip.instance.kill();
                 for (Entity item : enemies)
-                    ((Enemy) item).wasShot();
+                    item.wasShot();
                 break;
             }
         }
     }
+
+
 
 
 }
