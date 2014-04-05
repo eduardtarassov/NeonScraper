@@ -4,7 +4,7 @@ package com.eduardtarassov.gameobjects;
  * Created by Eduard on 04/04/14.
  */
 public class Wanderer extends Entity{
-    protected void wasShot() {
+    public void wasShot() {
         isExpired = true;
     }
 

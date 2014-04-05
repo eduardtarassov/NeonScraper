@@ -50,6 +50,7 @@ public class Entity {
 */
     public void handleCollision(Entity other){
         Vector2 d = position.sub(other.position);
+        //Vector2 d = new Vector2(position).sub(other.position).nor();
 
         velocity.add(d.scl(10).scl(1 / (d.len2() + 1)));
     }

@@ -76,6 +76,8 @@ public class EntityManager {
                 it.remove();
             }
         }
+
+        handleCollisions();
     }
 
     public static void draw(SpriteBatch spriteBatch){

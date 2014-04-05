@@ -11,25 +11,22 @@ import com.eduardtarassov.nshelpers.Constants;
  */
 public class EnemySpawner {
     static float inverseSpawnChance = 60;
-             static boolean created = false;
     public static void update()
     {
         if (!PlayerShip.instance.isDead() && EntityManager.enemies.size() < 200)
         {
-           // if ((int)(Math.random() * (inverseSpawnChance + 1)) == 0) // Gives value in a range [0, inverseSpawnChance].
-            if (!created){
+            if ((int)(Math.random() * (inverseSpawnChance + 1)) == 0) // Gives value in a range [0, inverseSpawnChance].
                 EntityManager.addEntity(new Seeker(AssetLoader.seeker, getSpawnPosition()));
-                created = true;
-            }
 
-           /* if ((int)(Math.random() * (inverseSpawnChance + 1)) == 0)
-                EntityManager.addEntity(new Wanderer(AssetLoader.wanderer, getSpawnPosition()));  */
+            /*if ((int)(Math.random() * (inverseSpawnChance + 1)) == 0)
+                EntityManager.addEntity(new Wanderer(AssetLoader.wanderer, getSpawnPosition()));
+        }          */
         }
-
         // Increasing the spawn rate during the game to increase difficulty
         if (inverseSpawnChance > 20)
             inverseSpawnChance -= 0.005f;
     }
+
 
     private static Vector2 getSpawnPosition()
     {
