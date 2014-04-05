@@ -30,7 +30,7 @@ public class EnemySpawner {
     private static Vector2 getSpawnPosition() {
         Vector2 pos;
         do {
-            pos = new Vector2((float) (Math.random() * (Constants.WIDTH)), (float) Math.random() * (Constants.HEIGHT));
+            pos = new Vector2((float) (Math.random() * (Constants.WIDTH - 20)), (float) Math.random() * (Constants.HEIGHT));
         }
         while (new Vector2(pos).sub(PlayerShip.instance.position).len2() < 20 * 20); // Enemy always at least 250 pixels away from player
 
