@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.screens.GameScreen;
+import com.eduardtarassov.screens.SplashScreen;
 
 import javax.swing.*;
 
@@ -25,7 +26,7 @@ public class NSGame extends Game {
 	public void create() {
 		System.out.println("Game Created!");
         AssetLoader.load();
-        setScreen(new GameScreen());
+        setScreen(new SplashScreen(this));
 	}
 
 	@Override
