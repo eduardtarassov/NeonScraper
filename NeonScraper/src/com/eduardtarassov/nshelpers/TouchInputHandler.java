@@ -102,13 +102,13 @@ public class TouchInputHandler implements InputProcessor {
        /* System.out.println(screenX + "     " + screenY);    //For some reasons this gives completely absurd numbers for the positions on the screen.
           aimDirection = new Vector2(screenX, screenY);
         playerShip.bulletIsActive = true; */
-        isAiming = true;
+       /* isAiming = true;
         //playerShip.bulletIsActive = true;
 
 
 
         aimDirection = new Vector3(screenX, screenY, 0);
-        GameRenderer.camera.unproject(aimDirection);
+        GameRenderer.camera.unproject(aimDirection);  */
         return true;
     }
 
