@@ -20,7 +20,7 @@ import java.util.Random;
 public class PlayerShip extends Entity {
 
     public static PlayerShip instance;
-    private final int cooldownFrames = 12;
+
     private int cooldownRemaining = 0;
     private int framesUntilRespawn = 0;
 
@@ -32,18 +32,11 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
-
+        System.out.println(System.nanoTime());
         if (isDead()){
             framesUntilRespawn--;
             return;
         }
-
-
-        // When player touches the screen, TouchInputHandler class sets the variable isAiming = true.
-        /* if (TouchInputHandler.isAiming) {
-            //Creating an Vector2 object which takes coordinates from user input on the screen.
-            Vector2 aim = new Vector2(TouchInputHandler.getAimDirection().x, TouchInputHandler.getAimDirection().y);*/
-
 
         // Method that is responsible for player movement.
         motionMove();
@@ -78,31 +71,30 @@ public class PlayerShip extends Entity {
     }
 
     public void bulletsMove(){
+        final int cooldownFrames = 12;
         Vector2 aim = new Vector2(-direction.x, -direction.y);
         // Waiting for the delay between previous and next bullet launched.
         if (cooldownRemaining <= 0) {
-            //cooldownFrames if final static value equal to 6.
+            //cool downFrames if final static value equal to 6.
             // So loop will go through 6 times before next bullet.
             cooldownRemaining = cooldownFrames;
-            aim.nor();
+
             // Taking the current position of the ship and applying it to the start position of the bullet.
             Vector2 startPos = new Vector2(position);
-            // Subtracting current bullet position from the aim position and getting direction vector.
-            //startPos.sub(aim);
             // Normalizing the aim (bullet direction) vector, so the sum of scalars of vector = 1;
-           // startPos.nor();
+            aim.nor();
             // Multiplying this vector by a scalar and setting the movement 20 times faster.
             aim.scl(20);
 
             // Adding new entity with the bullet start position and direction where it has to move.
              startPos.add(aim);// allows us to set the radius around the ship, where the initial position of the bullet will be.
-            EntityManager.addEntity(new Bullet(startPos, aim));
 
+            EntityManager.addEntity(new Bullet(startPos, aim));
+            EntityManager.addEntity(new Bullet(new Vector2(startPos), new Vector2(aim.x, aim.y)));
             // After bullet has been launched, set isAiming to false.
             // TouchInputHandler.isAiming = false;
         }
-        //}
-        // Decreasing cooldown Remaining in every loop until it will be equal 0 and bullet will be ready again.
+        // Decreasing cool down Remaining in every loop until it will be equal 0 and bullet will be ready again.
         if (cooldownRemaining > 0)
             cooldownRemaining--;
     }

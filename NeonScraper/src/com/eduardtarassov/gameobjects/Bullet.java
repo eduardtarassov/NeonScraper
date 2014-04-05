@@ -25,7 +25,6 @@ public class Bullet extends Entity {
        // if (velocity.len2() > 0)
            // orientation = velocity.angle();
 
-        orientation = PlayerShip.getInstance().orientation;
 
                 position.add(velocity);
         // delete bullets which go off-screen
