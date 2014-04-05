@@ -11,28 +11,25 @@ import com.eduardtarassov.nshelpers.Constants;
  */
 public class EnemySpawner {
     static float inverseSpawnChance = 60;
-    public static void update()
-    {
-        if (!PlayerShip.instance.isDead() && EntityManager.enemies.size() < 200)
-        {
-            if ((int)(Math.random() * (inverseSpawnChance + 1)) == 0) // Gives value in a range [0, inverseSpawnChance].
+
+    public static void update() {
+        if (!PlayerShip.instance.isDead() && EntityManager.enemies.size() < 200) {
+            if ((int) (Math.random() * (inverseSpawnChance + 1)) == 0) // Gives value in a range [0, inverseSpawnChance].
                 EntityManager.addEntity(new Seeker(AssetLoader.seeker, getSpawnPosition()));
 
-            /*if ((int)(Math.random() * (inverseSpawnChance + 1)) == 0)
+            if ((int) (Math.random() * (inverseSpawnChance + 1)) == 0)
                 EntityManager.addEntity(new Wanderer(AssetLoader.wanderer, getSpawnPosition()));
-        }          */
-        }
-        // Increasing the spawn rate during the game to increase difficulty
-        if (inverseSpawnChance > 20)
-            inverseSpawnChance -= 0.005f;
+
     }
+    // Increasing the spawn rate during the game to increase difficulty
+    if(inverseSpawnChance>20)
+    inverseSpawnChance-=0.005f;
+}
 
 
-    private static Vector2 getSpawnPosition()
-    {
+    private static Vector2 getSpawnPosition() {
         Vector2 pos;
-        do
-        {
+        do {
             pos = new Vector2((float) (Math.random() * (Constants.WIDTH)), (float) Math.random() * (Constants.HEIGHT));
         }
         while (new Vector2(pos).sub(PlayerShip.instance.position).len2() < 20 * 20); // Enemy always at least 250 pixels away from player
@@ -40,8 +37,7 @@ public class EnemySpawner {
         return pos;
     }
 
-    public static void reset()
-    {
+    public static void reset() {
         inverseSpawnChance = 60;
     }
 }

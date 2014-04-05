@@ -14,9 +14,8 @@ public class Entity {
     // The tint of the image. This will also allow us to change the transparency.
     protected Color color = Color.WHITE;
     protected Vector2 position;
-    protected Vector2 velocity, accelerometer, direction;
+    protected Vector2 velocity, direction;
     protected float orientation;
-    protected float acceleration = 10;
     protected int timeUntilStart = 60;
 
     // We will use radius for circular collision detection.
@@ -30,7 +29,7 @@ public class Entity {
     }
 
     public void update(){
-
+        position.add(velocity);
     }
 
     public void draw(SpriteBatch spriteBatch)
@@ -49,7 +48,7 @@ public class Entity {
 * The closer they are, the harder it will be pushed, because the magnitude of (d / d.LengthSquared()) is just one over the distance.
 */
     public void handleCollision(Entity other){
-        Vector2 d = position.sub(other.position);
+        Vector2 d = new Vector2(position).sub(other.position);
         //Vector2 d = new Vector2(position).sub(other.position).nor();
 
         velocity.add(d.scl(10).scl(1 / (d.len2() + 1)));

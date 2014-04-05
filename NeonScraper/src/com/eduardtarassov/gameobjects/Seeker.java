@@ -22,7 +22,7 @@ public class Seeker extends Entity {
         this.image = image;
         this.position = position;
         radius = image.getRegionWidth() / 2.0f;
-        color = Color.CLEAR; //!!!!! I am not sure this is gonna be transparent one.
+       // color = Color.CLEAR;
          this.velocity = new Vector2(0, 0);
     }
 
@@ -39,7 +39,6 @@ public class Seeker extends Entity {
         }
 
         position.add(velocity);
-        // position.clamp(Constants.VIEWPORT / 2, );   //WTF WAS CODE HERE!!!!
         velocity.scl(0.8f);
     }
 
@@ -50,9 +49,4 @@ public class Seeker extends Entity {
         //if (velocity != Vector2.Zero)
             orientation = velocity.angle();
     }
-
-
-
-
-
 }
