@@ -76,11 +76,11 @@ public class Wanderer extends Entity {
                 * direction will be equal to the direction given by central point of the screen to the current position of the enemy.
                 * This gives us the certain direction where the enemy came off the screen. And we simple add a random angle from -360 degrees to 360 degrees.
                 */
-            if ((position.x > (408 - 20)) || (position.x < 0) || (position.y > (272 - 20)) || (position.y < 0))
+            if ((position.x > (Constants.WIDTH - 40)) || (position.x < 0 + 40) || (position.y > (Constants.HEIGHT - 40)) || (position.y < 0 + 40))
                 direction = (float) (Constants.SCREENSIZE.scl(0.5f).sub(position).angle() - Math.PI * 2 + (Math.random() * ((Math.PI * 2 - -Math.PI * 2) + 1)) - Math.PI * 2);
 
-            velocity.add(MathUtil.FromPolar(direction, 1f));
-            orientation -= 5f;
+            velocity.add(MathUtil.FromPolar(direction, 2f));
+            orientation -= 10f;
 
     }
 }

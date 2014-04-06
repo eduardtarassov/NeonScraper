@@ -37,9 +37,9 @@ public class Seeker extends Entity {
             timeUntilStart--;
             //color = Color.WHITE * (1 - timeUntilStart / 60f);
         }
-
+        velocity.scl(3f);
         position.add(velocity);
-        velocity.scl(0.8f);
+        //velocity.scl(0.8f);
     }
 
 

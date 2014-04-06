@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
 
     private static Texture texture, logoTexture;
-    public static TextureRegion player, seeker, wanderer, bullet, pointer, logo;
+    public static TextureRegion player, seeker, wanderer, bullet, hole, logo;
 
 
     public static void load(){
@@ -22,16 +22,16 @@ public class AssetLoader {
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
 
-        seeker = new TextureRegion(texture, 0, 0, 20, 15);
+        seeker = new TextureRegion(texture, 0, 0, 40, 30);
         seeker.flip(false, true);
-        pointer = new TextureRegion(texture, 20, 0, 11, 16);
-        pointer.flip(false, true);
-        player = new TextureRegion(texture, 31, 0, 20, 20);
+        player = new TextureRegion(texture, 41, 0, 39, 40);
         player.flip(false, true);
-        bullet = new TextureRegion(texture, 51, 0, 5, 14);
+        bullet = new TextureRegion(texture, 0, 31, 9, 28);
         bullet.flip(false, true);
-        wanderer = new TextureRegion(texture, 56, 0, 21, 20);
+        wanderer = new TextureRegion(texture, 80, 0, 39, 40);
         wanderer.flip(false, true);
+        hole = new TextureRegion(texture, 120, 0, 40, 40);
+        hole.flip(false, true);
     }
 
     public static void dispose(){

@@ -49,6 +49,7 @@ public class PlayerShip extends Entity {
         bulletsMove();
 
         orientation = direction.angle();
+        direction.scl(3);
 
         position.sub(direction.x, direction.y);
 
