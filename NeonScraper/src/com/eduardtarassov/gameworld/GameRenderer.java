@@ -12,8 +12,10 @@ import com.eduardtarassov.TweenAccessors.Value;
 import com.eduardtarassov.TweenAccessors.ValueAccessor;
 import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
+import com.eduardtarassov.gameobjects.PlayerStatus;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
+import com.eduardtarassov.nshelpers.TouchInputHandler;
 import com.eduardtarassov.ui.SimpleButton;
 
 import java.util.List;
@@ -44,11 +46,13 @@ public class GameRenderer {
     private Value alpha = new Value();
 
     // Buttons
+    private List<SimpleButton> menuButtons;
 
     public GameRenderer(GameWorld world) {
         myWorld = world;
 
-
+        this.menuButtons = ((TouchInputHandler) Gdx.input.getInputProcessor())
+                .getMenuButtons();
         camera = new OrthographicCamera(Constants.WIDTH, Constants.HEIGHT);
         //camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
        camera.position.set(Constants.MIDPOINTX, Constants.MIDPOINTY, 0);
@@ -76,32 +80,23 @@ public class GameRenderer {
     private void initGameObjects() {
         //playerShip = myWorld.getPlayerShip();
         EntityManager.addEntity(PlayerShip.getInstance());
-
     }
 
     private void initAssets() {
        player = new Sprite(AssetLoader.player);
-
     }
 
     private void drawMenuUI() {
-        spriteBatch.draw(AssetLoader.nslogo, 136 / 2 - 56, Constants.MIDPOINTY - 50,
-                AssetLoader.nslogo.getRegionWidth() / 1.2f,
-                AssetLoader.nslogo.getRegionHeight() / 1.2f);
-
-       /* for (SimpleButton button : menuButtons) {
+        for (SimpleButton button : menuButtons) {
             button.draw(spriteBatch);
-        }     */
-
+        }
     }
 
-    /*private void drawScore() {
-        int length = ("" + myWorld.getScore()).length();
-        AssetLoader.shadow.draw(batcher, "" + myWorld.getScore(),
-                68 - (3 * length), midPointY - 82);
-        AssetLoader.font.draw(batcher, "" + myWorld.getScore(),
-                68 - (3 * length), midPointY - 83);
-    }*/
+    private void drawScore() {
+        int length = ("" + PlayerStatus.getScore()).length();
+        AssetLoader.font.draw(spriteBatch, "" + PlayerStatus.getScore(),
+                Constants.WIDTH - (40 * length), Constants.HEIGHT - 15);
+    }
 
     public void render(float delta, float runTime) {
         // Sets the clear screen color to: Cornflower Blue
@@ -127,15 +122,20 @@ public class GameRenderer {
                       // Supposed to be in the GameRoot draw() method
                       spriteBatch.enableBlending();
         spriteBatch.begin();
+        if (myWorld.isRunning()) {
+            EntityManager.draw(spriteBatch);
+            drawScore();
+        } else if (myWorld.isReady()) {
+            //drawScore();
+        } else if (myWorld.isMenu()) {
+            drawMenuUI();
+        } else if (myWorld.isGameOver()) {
+            //drawScore();
+        } else if (myWorld.isHighScore()) {
+            //drawScore();
+        }
 
-
-        //spriteBatch.disableBlending();
-
-        EntityManager.draw(spriteBatch);
-
-                 //drawPlayer();
         spriteBatch.disableBlending();
-        //manager.draw(spriteBatch);
         spriteBatch.end();
 
     }

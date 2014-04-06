@@ -6,8 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameworld.GameRenderer;
+import com.eduardtarassov.ui.SimpleButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Eduard on 3/13/14.
@@ -17,8 +19,19 @@ public class TouchInputHandler implements InputProcessor {
      private PlayerShip playerShip;
     private static Vector3 aimDirection;
     public static boolean isAiming = false;
+
+    private List<SimpleButton> menuButtons;
+    private SimpleButton playButton;
+
     public TouchInputHandler(){
         playerShip = PlayerShip.getInstance();
+
+        menuButtons = new ArrayList<SimpleButton>();
+        playButton = new SimpleButton(
+                136 / 2 - (AssetLoader.playButtonUp.getRegionWidth() / 2),
+                Constants.MIDPOINTY + 50, 29, 16, AssetLoader.playButtonUp,
+                AssetLoader.playButtonDown);
+        menuButtons.add(playButton);
     }
                                          //
     @Override
@@ -125,7 +138,7 @@ public class TouchInputHandler implements InputProcessor {
         return false;
     }
 
-    public static Vector3 getAimDirection(){
-        return aimDirection;
+    public List<SimpleButton> getMenuButtons() {
+        return menuButtons;
     }
 }

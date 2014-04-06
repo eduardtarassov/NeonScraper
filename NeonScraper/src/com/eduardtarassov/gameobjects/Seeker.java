@@ -24,6 +24,7 @@ public class Seeker extends Entity {
         radius = image.getRegionWidth() / 2.0f;
        // color = Color.CLEAR;
          this.velocity = new Vector2(0, 0);
+        killingPoints = 2;
     }
 
 

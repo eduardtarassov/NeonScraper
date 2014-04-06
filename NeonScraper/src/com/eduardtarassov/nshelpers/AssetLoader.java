@@ -12,9 +12,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
 
     private static Texture texture, logoTexture;
-    public static TextureRegion player, seeker, wanderer, bullet, hole, logo, nslogo;
+    public static TextureRegion player, seeker, wanderer, bullet, hole, logo, playButtonUp, playButtonDown;
     public static BitmapFont font, shadow;
     private static Preferences prefs;
+
 
     public static void load() {
         logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
@@ -33,16 +34,18 @@ public class AssetLoader {
         wanderer.flip(false, true);
         hole = new TextureRegion(texture, 120, 0, 40, 40);
         hole.flip(false, true);
+        playButtonUp = new TextureRegion(texture, 161, 0, 35, 16);
+        playButtonUp.flip(false, true);
+        playButtonDown = new TextureRegion(texture, 197, 0, 35, 16);
+        playButtonDown.flip(false, true);
 
         bullet = new TextureRegion(texture, 0, 31, 9, 28);
         bullet.flip(false, true);
-        nslogo = new TextureRegion(texture, 10, 41, 205, 32);
-        nslogo.flip(false, true);
 
         font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
-        font.setScale(.25f, -.25f);
+        font.setScale(1f);
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
-        shadow.setScale(.25f, -.25f);
+        shadow.setScale(1f);
 
         // Create (or retrieve existing) preferences file
         prefs = Gdx.app.getPreferences("ZombieBird");

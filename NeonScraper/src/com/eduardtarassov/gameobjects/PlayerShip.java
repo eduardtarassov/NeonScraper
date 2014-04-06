@@ -32,7 +32,7 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
-        System.out.println(System.nanoTime());
+        System.out.println("This is score: " + PlayerStatus.getScore());
         if (isDead()){
             framesUntilRespawn--;
             return;

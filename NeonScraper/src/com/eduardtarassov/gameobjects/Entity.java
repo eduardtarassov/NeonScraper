@@ -17,6 +17,7 @@ public class Entity {
     protected Vector2 velocity, direction;
     protected float orientation;
     protected int timeUntilStart = 60;
+    protected int killingPoints;
 
     // We will use radius for circular collision detection.
     protected float radius = 20;

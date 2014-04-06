@@ -13,10 +13,9 @@ import com.eduardtarassov.nshelpers.Constants;
 public class GameWorld {
 
     private GameState currentState;
-    private float runTime = 0;
-    private int score = 0;
+   /* private float runTime = 0;
+    private int score = 0;  */
     private PlayerShip playerShip;
-    private int midPointY, midPointX;
 
 
     enum GameState {
@@ -24,12 +23,15 @@ public class GameWorld {
     }
 
     public GameWorld() {
+        //currentState = GameState.MENU;
+        PlayerStatus.reset();
         currentState = GameState.RUNNING;
+
         playerShip = PlayerShip.getInstance();
     }
 
     public void update(float delta) {
-        runTime += delta;
+        //runTime += delta;
 
         switch (currentState) {
             case READY:
@@ -50,6 +52,9 @@ public class GameWorld {
     }
 
     public void updateRunning(float delta) {
+       /* if (delta > .15f)
+            delta = .15f; */ // Maybe we will require this in the future. To set the same game speed working on all devices. Also see usage of delta in ZombieBird game.
+
         EntityManager.update();
         playerShip.update();
         EnemySpawner.update();
@@ -62,6 +67,7 @@ public class GameWorld {
 
     public void start() {
         currentState = GameState.RUNNING;
+
     }
 
     public void ready() {
@@ -70,7 +76,7 @@ public class GameWorld {
 
     public void restart() {
         currentState = GameState.READY;
-        score = 0;
+       // score = 0;
     }
 
     public boolean isReady() {
@@ -96,5 +102,4 @@ public class GameWorld {
     /*public PlayerShip getPlayerShip(){
         return playerShip;
     } */
-
 }

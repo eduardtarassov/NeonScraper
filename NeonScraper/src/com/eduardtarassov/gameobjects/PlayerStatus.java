@@ -21,8 +21,9 @@ public class PlayerStatus {
     private static int scoreForExtraLife;
 
     public PlayerStatus(){
-        reset();
     }
+
+
 
     public static void reset(){
         score = 0;
@@ -85,5 +86,9 @@ public class PlayerStatus {
 
     public void setLives(int lives){
         PlayerStatus.lives = lives;
+    }
+
+    public static int getScore() {
+        return score;
     }
 }
