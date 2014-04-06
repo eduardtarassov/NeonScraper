@@ -31,12 +31,12 @@ public class SplashScreen implements Screen {
         sprite = new Sprite(AssetLoader.logo);
         sprite.setColor(0, 0, 0, 0);
 
-        float desiredHeight = Constants.HEIGHT * .7f;
+        float desiredHeight = Constants.HEIGHT * .3f;
         float scale = desiredHeight / sprite.getHeight();
 
 
         sprite.setSize(sprite.getWidth() * scale, sprite.getHeight() * scale);
-        sprite.setPosition((Constants.WIDTH / 2), (Constants.HEIGHT / 2));
+        sprite.setPosition((Constants.WIDTH / 2) - (sprite.getWidth() / 2), (Constants.HEIGHT / 2) - (sprite.getHeight() / 2));
         setupTween();
         batcher = new SpriteBatch();
     }

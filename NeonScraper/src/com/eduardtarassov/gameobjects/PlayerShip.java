@@ -26,7 +26,7 @@ public class PlayerShip extends Entity {
 
     public PlayerShip() {
         image = AssetLoader.player;
-        position = new Vector2(Constants.WIDTH / 2 - 20, Constants.HEIGHT / 2 - 20);
+        position = new Vector2(Constants.WIDTH / 2 - 20, Constants.HEIGHT / 2 - 20); //Maybe it should not be -20 !!!!
         radius = 10;
     }
 
@@ -55,12 +55,12 @@ public class PlayerShip extends Entity {
 
 
         // Now we make it impossible for ship to move out of the corners.
-        if (position.x > (408 - 20))
-            position.x = 408 - 20;
+        if (position.x > (Constants.WIDTH - 20))
+            position.x = Constants.WIDTH - 20;
         if (position.x < 0)
             position.x = 0;
-        if (position.y > (272 - 20))
-            position.y = 272 - 20;
+        if (position.y > (Constants.HEIGHT - 20))
+            position.y = Constants.HEIGHT - 20;
         if (position.y < 0)
             position.y = 0;
     }
