@@ -1,14 +1,20 @@
 package com.eduardtarassov.gameworld;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
+import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.eduardtarassov.TweenAccessors.Value;
+import com.eduardtarassov.TweenAccessors.ValueAccessor;
 import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
+import com.eduardtarassov.ui.SimpleButton;
 
 import java.util.List;
 
@@ -34,6 +40,8 @@ public class GameRenderer {
     // Game Assets
 
     // Tween stuff
+    private TweenManager manager;
+    private Value alpha = new Value();
 
     // Buttons
 
@@ -43,7 +51,7 @@ public class GameRenderer {
 
         camera = new OrthographicCamera(Constants.WIDTH, Constants.HEIGHT);
         //camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-       camera.position.set(Constants.WIDTH/2, Constants.HEIGHT/2, 0);
+       camera.position.set(Constants.MIDPOINTX, Constants.MIDPOINTY, 0);
         camera.update();
 
         spriteBatch = new SpriteBatch();
@@ -54,8 +62,15 @@ public class GameRenderer {
 
         initGameObjects();
         initAssets();
-        //setupTweens();
+        setupTweens();
 
+    }
+
+    private void setupTweens() {
+        Tween.registerAccessor(Value.class, new ValueAccessor());
+        manager = new TweenManager();
+        Tween.to(alpha, -1, .5f).target(0).ease(TweenEquations.easeOutQuad)
+                .start(manager);
     }
 
     private void initGameObjects() {
@@ -68,6 +83,25 @@ public class GameRenderer {
        player = new Sprite(AssetLoader.player);
 
     }
+
+    private void drawMenuUI() {
+        spriteBatch.draw(AssetLoader.nslogo, 136 / 2 - 56, Constants.MIDPOINTY - 50,
+                AssetLoader.nslogo.getRegionWidth() / 1.2f,
+                AssetLoader.nslogo.getRegionHeight() / 1.2f);
+
+       /* for (SimpleButton button : menuButtons) {
+            button.draw(spriteBatch);
+        }     */
+
+    }
+
+    /*private void drawScore() {
+        int length = ("" + myWorld.getScore()).length();
+        AssetLoader.shadow.draw(batcher, "" + myWorld.getScore(),
+                68 - (3 * length), midPointY - 82);
+        AssetLoader.font.draw(batcher, "" + myWorld.getScore(),
+                68 - (3 * length), midPointY - 83);
+    }*/
 
     public void render(float delta, float runTime) {
         // Sets the clear screen color to: Cornflower Blue

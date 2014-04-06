@@ -13,8 +13,10 @@ public class Constants {
     public static final float VIEWPORT = 0.5f;
     public static final int WIDTH = Gdx.graphics.getWidth();
      public static final int HEIGHT = Gdx.graphics.getHeight();
-    public static Vector2 SCREENSIZE = new Vector2(WIDTH, HEIGHT);
-    public static int ANDROID_WIDTH = 1280;
-    public static int ANDROID_HEIGHT = 720;
+    public static final Vector2 SCREENSIZE = new Vector2(WIDTH, HEIGHT);
+    public static final int ANDROID_WIDTH = 1280;
+    public static final int ANDROID_HEIGHT = 720;
+    public static final int MIDPOINTX = Gdx.graphics.getWidth()/2;
+    public static final int MIDPOINTY = Gdx.graphics.getHeight()/2;
 
 }
