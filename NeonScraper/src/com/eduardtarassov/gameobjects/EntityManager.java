@@ -2,6 +2,7 @@ package com.eduardtarassov.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.eduardtarassov.gameworld.GameWorld;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -123,8 +124,12 @@ public class EntityManager {
         for (int i = 0; i < enemies.size(); i++){
             if (((enemies.get(i)).isActive()) && (isColliding(PlayerShip.instance, enemies.get(i)))){
                 PlayerShip.instance.kill();
+                PlayerStatus.removeLife();
                 for (Entity item : enemies)
                     item.wasShot();
+                if (PlayerStatus.getLives() <= 0){
+                   GameWorld.setCurrentStateGameOver();
+                }
                 break;
             }
         }

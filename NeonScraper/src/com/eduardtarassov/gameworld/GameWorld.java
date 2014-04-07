@@ -12,13 +12,13 @@ import com.eduardtarassov.nshelpers.Constants;
  */
 public class GameWorld {
 
-    private GameState currentState;
+    private static GameState currentState;
    /* private float runTime = 0;
     private int score = 0;  */
     private PlayerShip playerShip;
 
 
-    enum GameState {
+     enum GameState {
         MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
     }
 
@@ -96,6 +96,10 @@ public class GameWorld {
 
     public boolean isRunning() {
         return currentState == GameState.RUNNING;
+    }
+
+    public static void setCurrentStateGameOver(){
+        currentState = GameState.GAMEOVER;
     }
 
     /*public PlayerShip getPlayerShip(){

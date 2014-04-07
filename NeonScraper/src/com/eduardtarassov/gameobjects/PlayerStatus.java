@@ -98,8 +98,8 @@ public class PlayerStatus {
         PlayerStatus.multiplier = multiplier;
     }
 
-    public void setLives(int lives){
-        PlayerStatus.lives = lives;
+    public static int getLives(){
+        return lives;
     }
 
     public static int getScore() {

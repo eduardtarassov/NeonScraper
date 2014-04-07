@@ -93,9 +93,15 @@ public class GameRenderer {
     }
 
     private void drawScore() {
-        int length = ("" + PlayerStatus.getScore()).length();
-        AssetLoader.font.draw(spriteBatch, "" + PlayerStatus.getScore(),
-                Constants.WIDTH - (40 * length), Constants.HEIGHT - 15);
+        int length = ("Score: " + PlayerStatus.getScore()).length();
+        AssetLoader.font.draw(spriteBatch, "Score: " + PlayerStatus.getScore(),
+                Constants.WIDTH - 200 - (28 * length), Constants.HEIGHT - 15);
+    }
+
+    private void drawLives() {
+        int length = ("Lives: " + PlayerStatus.getLives()).length();
+        AssetLoader.font.draw(spriteBatch, "Lives: " + PlayerStatus.getLives(),
+                Constants.WIDTH - (24 * length), Constants.HEIGHT - 15);
     }
 
     public void render(float delta, float runTime) {
@@ -125,6 +131,7 @@ public class GameRenderer {
         if (myWorld.isRunning()) {
             EntityManager.draw(spriteBatch);
             drawScore();
+            drawLives();
         } else if (myWorld.isReady()) {
             //drawScore();
         } else if (myWorld.isMenu()) {
