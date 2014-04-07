@@ -110,8 +110,13 @@ public class GameRenderer {
         // Clears the screen
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-      /*shapeRenderer.begin(ShapeType.Line);
-        for (int x = 1; x <= Grid.GRID_COLUMNS; x++){
+     /* shapeRenderer.begin(ShapeRenderer.ShapeType.Point);
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.point(PlayerShip.getPosition2().x + 20, PlayerShip.getPosition2().y + 20, 0);
+        shapeRenderer.end();*/
+
+
+       /* for (int x = 1; x <= Grid.GRID_COLUMNS; x++){
             shapeRenderer.line(x*Grid.gridDividedColumns, 0, x*Grid.gridDividedColumns, Constants.HEIGHT, Color.GREEN, Color.GREEN);
         }
 

@@ -13,7 +13,7 @@ public class Entity {
        public TextureRegion image;
     // The tint of the image. This will also allow us to change the transparency.
     protected Color color = Color.WHITE;
-    protected Vector2 position;
+    protected Vector2 position; // NOT FORGET TO MAKE IT PROTECTED!!!!
     protected Vector2 velocity, direction;
     protected float orientation;
     protected int timeUntilStart = 60;

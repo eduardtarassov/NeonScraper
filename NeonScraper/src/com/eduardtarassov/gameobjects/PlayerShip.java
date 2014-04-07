@@ -23,6 +23,7 @@ public class PlayerShip extends Entity {
 
     private int cooldownRemaining = 0;
     private int framesUntilRespawn = 0;
+   // public static Vector2 position2;// don't forget to remove
 
     public PlayerShip() {
         image = AssetLoader.player;
@@ -52,7 +53,7 @@ public class PlayerShip extends Entity {
         direction.scl(3);
 
         position.sub(direction.x, direction.y);
-
+       // position2 = new Vector2(position); // Don't forget to remove.
 
 
         // Now we make it impossible for ship to move out of the corners.
@@ -81,17 +82,39 @@ public class PlayerShip extends Entity {
             cooldownRemaining = cooldownFrames;
 
             // Taking the current position of the ship and applying it to the start position of the bullet.
-            Vector2 startPos = new Vector2(position);
+            Vector2 startPos = new Vector2(position.x + 20, position.y + 20);
+            Vector2 startPos2 = new Vector2(startPos);
+
             // Normalizing the aim (bullet direction) vector, so the sum of scalars of vector = 1;
             aim.nor();
-            // Multiplying this vector by a scalar and setting the movement 20 times faster.
-            aim.scl(20);
+            Vector2 aim2 = new Vector2(aim);
 
+            // Taking the angle where to shoot
+            float aimAngle = aim.angle();
+
+
+            // Multiplying this vector by a scalar and setting the movement 20 times faster.
+            aim.setAngle(aimAngle - 25);
+            aim2.setAngle(aimAngle + 25);
+            aim.scl(30);
+            aim2.scl(30);
+
+           /* */
             // Adding new entity with the bullet start position and direction where it has to move.
              startPos.add(aim);// allows us to set the radius around the ship, where the initial position of the bullet will be.
+           startPos2.add(aim2);
 
+            aim.setAngle(aimAngle);
+            aim2.setAngle(aimAngle);
+
+            float randomSpread =  (float) (-0.05f + (Math.random() * ((0.05f + 0.05f) + 1)));
+            aim.rotate(randomSpread);
+            randomSpread =  (float) (-0.05f + (Math.random() * ((0.05f + 0.05f) + 1)));
+            aim2.rotate(randomSpread);
+            //startPos.rotate((float) -Math.PI/2);
+            //startPos2.rotate((float) Math.PI/4);
             EntityManager.addEntity(new Bullet(startPos, aim));
-            EntityManager.addEntity(new Bullet(new Vector2(startPos), new Vector2(aim.x, aim.y)));
+            EntityManager.addEntity(new Bullet(startPos2, aim2));
             // After bullet has been launched, set isAiming to false.
             // TouchInputHandler.isAiming = false;
         }
@@ -125,5 +148,9 @@ public class PlayerShip extends Entity {
     public boolean isDead(){
         return framesUntilRespawn > 0;
     }
+
+   /* public static Vector2 getPosition2(){
+        return position2;
+    }   */
 
 }
