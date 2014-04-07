@@ -6,7 +6,7 @@ package com.eduardtarassov.gameobjects;
  */
 public class PlayerStatus {
    // Amount of time to expire the multiplier of score points.
-    private static final float multiplierExpiryTime = 0.8f;
+    private static final float multiplierExpiryTime = 2000;
     private static final int maxMultiplier = 20;
 
     private static int lives;
@@ -15,12 +15,15 @@ public class PlayerStatus {
 
     // Time until the current multiplier expires
     private static float multiplierTimeLeft;
-    private static float multiplierTimeStart = 0;
+    private static long multiplierTimeStart = 0;
     private static float multiplierTimeElapsed = 0;
     // Score required to gain an extra life
     private static int scoreForExtraLife;
 
     public PlayerStatus(){
+    }
+    public static void multiplierTimeStart(){
+        multiplierTimeStart = System.currentTimeMillis();
     }
 
 
@@ -33,13 +36,24 @@ public class PlayerStatus {
         multiplierTimeLeft = 0;
     }
 
-    public static void update(){
+    public static void checkMultiplier(){
        if (multiplier > 1){
            // Updating timer of multiplier
-           if ((multiplierTimeLeft -= (float) System.nanoTime() / 1000 ) <= 0){
+           long currentTime = System.currentTimeMillis();
+           long value = currentTime - multiplierTimeStart;
+
+           System.out.println("This is your startTime: " + multiplierTimeStart);
+           System.out.println("This is your currentTime: " + currentTime);
+           System.out.println("This is your value: " + value);
+
+           if (value >= multiplierTimeLeft){
               multiplierTimeLeft = multiplierExpiryTime;
                resetMultiplier();
            }
+
+       }
+       else{
+           increaseMultiplier();
        }
     }
 
@@ -49,7 +63,7 @@ public class PlayerStatus {
             return;
 
         score += basePoints * multiplier;
-        while (score >= scoreForExtraLife)
+        if (score >= scoreForExtraLife)
         {
             scoreForExtraLife += 2000;
             lives++;

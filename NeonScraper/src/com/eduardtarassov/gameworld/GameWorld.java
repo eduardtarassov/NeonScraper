@@ -58,7 +58,6 @@ public class GameWorld {
         EntityManager.update();
         playerShip.update();
         EnemySpawner.update();
-        PlayerStatus.update();
     }
 
    /* public void addScore(int increment) {

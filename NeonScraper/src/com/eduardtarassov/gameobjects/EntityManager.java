@@ -109,6 +109,8 @@ public class EntityManager {
             for (int j = 0; j < bullets.size(); j++){
                 if (isColliding(enemies.get(i), bullets.get(j))){
                     PlayerStatus.addPoints(enemies.get(i).killingPoints);
+                    PlayerStatus.checkMultiplier();
+                    PlayerStatus.multiplierTimeStart();
                     enemies.get(i).wasShot();
 
                     ((Bullet) bullets.get(j)).isExpired = true;
