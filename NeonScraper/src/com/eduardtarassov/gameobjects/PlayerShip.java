@@ -14,8 +14,8 @@ import java.util.Random;
 
 /**
  * Created by Eduard on 3/10/14.
- *  This class is responsible for playerShip object properties (position, velocity, ...).
- *  Also for bullet creation and behaviour.
+ * This class is responsible for playerShip object properties (position, velocity, ...).
+ * Also for bullet creation and behaviour.
  */
 public class PlayerShip extends Entity {
 
@@ -23,7 +23,7 @@ public class PlayerShip extends Entity {
 
     private int cooldownRemaining = 0;
     private int framesUntilRespawn = 0;
-   // public static Vector2 position2;// don't forget to remove
+    // public static Vector2 position2;// don't forget to remove
 
     public PlayerShip() {
         image = AssetLoader.player;
@@ -33,7 +33,7 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
-        if (isDead()){
+        if (isDead()) {
             framesUntilRespawn--;
             return;
         }
@@ -52,7 +52,7 @@ public class PlayerShip extends Entity {
         direction.scl(3);
 
         position.sub(direction.x, direction.y);
-       // position2 = new Vector2(position); // Don't forget to remove.
+        // position2 = new Vector2(position); // Don't forget to remove.
 
 
         // Now we make it impossible for ship to move out of the corners.
@@ -101,8 +101,8 @@ public class PlayerShip extends Entity {
 
            /* */
             // Adding new entity with the bullet start position and direction where it has to move.
-             startPos.add(aim);// allows us to set the radius around the ship, where the initial position of the bullet will be.
-           startPos2.add(aim2);
+            startPos.add(aim);// allows us to set the radius around the ship, where the initial position of the bullet will be.
+            startPos2.add(aim2);
 
             aim.setAngle(aimAngle);
             aim2.setAngle(aimAngle);
@@ -124,7 +124,7 @@ public class PlayerShip extends Entity {
     }
 
     @Override
-    public void draw(SpriteBatch spriteBatch){
+    public void draw(SpriteBatch spriteBatch) {
         if (!isDead())
             super.draw(spriteBatch);
     }
@@ -136,8 +136,7 @@ public class PlayerShip extends Entity {
         return instance;
     }
 
-    public void kill()
-    {
+    public void kill() {
         framesUntilRespawn = 60;
         EnemySpawner.reset();
     }
@@ -145,7 +144,7 @@ public class PlayerShip extends Entity {
     /*
     * This getter method checks is player ship dead and waiting for respawn.
     */
-    public boolean isDead(){
+    public boolean isDead() {
         return framesUntilRespawn > 0;
     }
 

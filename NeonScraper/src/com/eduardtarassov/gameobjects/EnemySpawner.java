@@ -4,26 +4,34 @@ import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
 
+import java.util.Random;
+
 /**
  * Created by Eduard on 28/03/14.
  * This class is responsible for creating enemies and setting rate to respawn new ones.
  * As during the game loop
  */
 public class EnemySpawner {
-    static float inverseSpawnChance = 60;
+    static int inverseSpawnChance = 400;
 
     public static void update() {
         if (!PlayerShip.instance.isDead() && EntityManager.enemies.size() < 200) {
-            if ((int) (Math.random() * (inverseSpawnChance + 1)) == 0) // Gives value in a range [0, inverseSpawnChance].
+            if (new Random().nextInt(inverseSpawnChance) == 0) // Gives value in a range [0, inverseSpawnChance].
                 EntityManager.addEntity(new Seeker(AssetLoader.seeker, getSpawnPosition()));
 
-            if ((int) (Math.random() * (inverseSpawnChance + 1)) == 0)
+            if (new Random().nextInt(inverseSpawnChance) == 0)
                 EntityManager.addEntity(new Wanderer(AssetLoader.wanderer, getSpawnPosition()));
+
+            if (EntityManager.blackHoles.size() < 2){
+                if ((new Random().nextInt(60) == 0)){
+                    EntityManager.addEntity(new BlackHole(AssetLoader.hole, getSpawnPosition()));
+                }
+            }
 
     }
     // Increasing the spawn rate during the game to increase difficulty
-    if(inverseSpawnChance>20)
-    inverseSpawnChance-=0.005f;
+    if(inverseSpawnChance>100)
+    inverseSpawnChance-=0.0025f;
 }
 
 

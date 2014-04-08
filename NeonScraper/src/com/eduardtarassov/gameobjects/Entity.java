@@ -13,7 +13,7 @@ public class Entity {
        public TextureRegion image;
     // The tint of the image. This will also allow us to change the transparency.
     protected Color color = Color.WHITE;
-    protected Vector2 position; // NOT FORGET TO MAKE IT PROTECTED!!!!
+    public Vector2 position; // NOT FORGET TO MAKE IT PROTECTE
     protected Vector2 velocity, direction;
     protected float orientation;
     protected int timeUntilStart = 60;
@@ -52,7 +52,7 @@ public class Entity {
         Vector2 d = new Vector2(position).sub(other.position);
         //Vector2 d = new Vector2(position).sub(other.position).nor();
 
-        velocity.add(d.scl(10).scl(1 / (d.len2() + 1)));
+        position.add(d.scl(10).scl(1 / (d.len2() + 1)));
     }
 
     public void wasShot() {

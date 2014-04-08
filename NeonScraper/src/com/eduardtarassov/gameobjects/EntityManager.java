@@ -18,33 +18,34 @@ public class EntityManager {
     private static ArrayList<Entity> addedEntities = new ArrayList<Entity>();
     public static ArrayList<Entity> enemies = new ArrayList<Entity>();
     private static ArrayList<Entity> bullets = new ArrayList<Entity>();
+    public static ArrayList<Entity> blackHoles = new ArrayList<Entity>();
     private static Entity player = new Entity();
 
 
-
-    /*public static int getEntitiesSize() {
-        return entities.size();
-    }   */
-
-    public static void addEntity(Entity entity){
+    public static void addEntity(Entity entity) {
         if (!isUpdating)
             if (entity.getClass().equals(Bullet.class))
                 bullets.add(entity);
             else if ((entity instanceof Seeker) || (entity instanceof Wanderer))
-            enemies.add(entity);
+                enemies.add(entity);
+            else if (entity instanceof BlackHole)
+                blackHoles.add(entity);
             else
                 player = entity;
-        else
+            else
             addedEntities.add(entity);
-    }
+        }
 
-    public static void update(){
+    public static void update() {
         isUpdating = true;
 
-        for(Entity item : bullets)
+        for (Entity item : bullets)
             item.update();
 
-        for(Entity item : enemies)
+        for (Entity item : enemies)
+            item.update();
+
+        for (Entity item : blackHoles)
             item.update();
 
         player.update();
@@ -52,11 +53,13 @@ public class EntityManager {
         isUpdating = false;
 
         // Add all the new arrival entities into the arraylist of entities
-        for (Entity item : addedEntities){
+        for (Entity item : addedEntities) {
             if (item instanceof Bullet)
                 bullets.add(item);
             else if ((item instanceof Seeker) || (item instanceof Wanderer))
                 enemies.add(item);
+            else if (item instanceof BlackHole)
+                blackHoles.add(item);
             else
                 player = item;
         }
@@ -79,27 +82,37 @@ public class EntityManager {
             }
         }
 
+        // Remove any expired blackHole entities
+        for (Iterator<Entity> it = blackHoles.iterator(); it.hasNext(); ) {
+            Entity item = it.next();
+            if (item.isExpired) {
+                it.remove();
+            }
+        }
+
         handleCollisions();
     }
 
-    public static void draw(SpriteBatch spriteBatch){
+    public static void draw(SpriteBatch spriteBatch) {
         for (Entity item : bullets)
             item.draw(spriteBatch);
         for (Entity item : enemies)
             item.draw(spriteBatch);
+        for (Entity item : blackHoles)
+            item.draw(spriteBatch);
         player.draw(spriteBatch);
     }
 
-    private static boolean isColliding(Entity a, Entity b){
-      float radius = a.radius + b.radius;
+    private static boolean isColliding(Entity a, Entity b) {
+        float radius = a.radius + b.radius;
         return !a.isExpired && !b.isExpired && new Vector2(a.position).sub(b.position).len2() < radius * radius;
     }
 
-    private static void handleCollisions(){
+    private static void handleCollisions() {
         // Handles collisions between enemies
-        for (int i = 0; i < enemies.size(); i++){
-            for (int j = i + 1; j < enemies.size(); j++){
-                if (isColliding(enemies.get(i), enemies.get(j))){
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = i + 1; j < enemies.size(); j++) {
+                if (isColliding(enemies.get(i), enemies.get(j))) {
                     enemies.get(i).handleCollision(enemies.get(j));
                     enemies.get(j).handleCollision(enemies.get(i));
                 }
@@ -107,9 +120,9 @@ public class EntityManager {
         }
 
         // Handles collisions between bullets and enemies
-        for (int i = 0; i < enemies.size(); i++){
-            for (int j = 0; j < bullets.size(); j++){
-                if (isColliding(enemies.get(i), bullets.get(j))){
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = 0; j < bullets.size(); j++) {
+                if (isColliding(enemies.get(i), bullets.get(j))) {
                     PlayerStatus.addPoints(enemies.get(i).killingPoints);
                     PlayerStatus.checkMultiplier();
                     PlayerStatus.multiplierTimeStart();
@@ -122,22 +135,20 @@ public class EntityManager {
         }
 
         // Handles collisions between the player and enemies
-        for (int i = 0; i < enemies.size(); i++){
-            if (((enemies.get(i)).isActive()) && (isColliding(PlayerShip.instance, enemies.get(i)))){
+        for (int i = 0; i < enemies.size(); i++) {
+            if (((enemies.get(i)).isActive()) && (isColliding(PlayerShip.instance, enemies.get(i)))) {
                 PlayerShip.instance.kill();
                 AssetLoader.playRandExplosionSound();
                 PlayerStatus.removeLife();
                 for (Entity item : enemies)
                     item.wasShot();
-                if (PlayerStatus.getLives() <= 0){
-                   GameWorld.setCurrentStateGameOver();
+                if (PlayerStatus.getLives() <= 0) {
+                    GameWorld.setCurrentStateGameOver();
                 }
                 break;
             }
         }
     }
-
-
 
 
 }
