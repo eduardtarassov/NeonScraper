@@ -4,6 +4,7 @@ import com.eduardtarassov.gameobjects.EnemySpawner;
 import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameobjects.PlayerStatus;
+import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
 
 /**
@@ -26,7 +27,7 @@ public class GameWorld {
         //currentState = GameState.MENU;
         PlayerStatus.reset();
         currentState = GameState.RUNNING;
-
+        AssetLoader.music.play();
         playerShip = PlayerShip.getInstance();
     }
 

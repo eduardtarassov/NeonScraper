@@ -3,6 +3,7 @@ package com.eduardtarassov.gameobjects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.gameworld.GameWorld;
+import com.eduardtarassov.nshelpers.AssetLoader;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -113,7 +114,7 @@ public class EntityManager {
                     PlayerStatus.checkMultiplier();
                     PlayerStatus.multiplierTimeStart();
                     enemies.get(i).wasShot();
-
+                    AssetLoader.playRandExplosionSound();
                     ((Bullet) bullets.get(j)).isExpired = true;
 
                 }
@@ -124,6 +125,7 @@ public class EntityManager {
         for (int i = 0; i < enemies.size(); i++){
             if (((enemies.get(i)).isActive()) && (isColliding(PlayerShip.instance, enemies.get(i)))){
                 PlayerShip.instance.kill();
+                AssetLoader.playRandExplosionSound();
                 PlayerStatus.removeLife();
                 for (Entity item : enemies)
                     item.wasShot();

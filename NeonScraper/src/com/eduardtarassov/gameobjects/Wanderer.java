@@ -2,6 +2,7 @@ package com.eduardtarassov.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
 import com.eduardtarassov.nshelpers.MathUtil;
 
@@ -19,6 +20,7 @@ public class Wanderer extends Entity {
         // color = Color.CLEAR;
         this.velocity = new Vector2(0, 0);
         killingPoints = 1;
+        AssetLoader.playRandSpawnSound();
     }
 
 

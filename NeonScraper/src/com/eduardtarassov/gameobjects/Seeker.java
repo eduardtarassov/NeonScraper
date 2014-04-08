@@ -25,6 +25,7 @@ public class Seeker extends Entity {
        // color = Color.CLEAR;
          this.velocity = new Vector2(0, 0);
         killingPoints = 2;
+        AssetLoader.playRandSpawnSound();
     }
 
 

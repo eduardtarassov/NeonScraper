@@ -33,7 +33,6 @@ public class PlayerShip extends Entity {
 
     @Override
     public void update() {
-        System.out.println("This is score: " + PlayerStatus.getScore());
         if (isDead()){
             framesUntilRespawn--;
             return;
@@ -73,7 +72,7 @@ public class PlayerShip extends Entity {
     }
 
     public void bulletsMove(){
-        final int cooldownFrames = 12;
+        final int cooldownFrames = 24;
         Vector2 aim = new Vector2(-direction.x, -direction.y);
         // Waiting for the delay between previous and next bullet launched.
         if (cooldownRemaining <= 0) {
@@ -98,6 +97,7 @@ public class PlayerShip extends Entity {
             aim2.setAngle(aimAngle + 25);
             aim.scl(30);
             aim2.scl(30);
+            AssetLoader.playRandShootSound();
 
            /* */
             // Adding new entity with the bullet start position and direction where it has to move.
@@ -107,9 +107,9 @@ public class PlayerShip extends Entity {
             aim.setAngle(aimAngle);
             aim2.setAngle(aimAngle);
 
-            float randomSpread =  (float) (-0.05f + (Math.random() * ((0.05f + 0.05f) + 1)));
+            float randomSpread =  (float) ((-0.05f + (Math.random() * ((0.05f + 0.05f) + 1))) + (-0.05f + (Math.random() * ((0.05f + 0.05f) + 1))));
             aim.rotate(randomSpread);
-            randomSpread =  (float) (-0.05f + (Math.random() * ((0.05f + 0.05f) + 1)));
+            randomSpread =  (float) ((-0.05f + (Math.random() * ((0.05f + 0.05f) + 1))) + (-0.05f + (Math.random() * ((0.05f + 0.05f) + 1))));
             aim2.rotate(randomSpread);
             //startPos.rotate((float) -Math.PI/2);
             //startPos2.rotate((float) Math.PI/4);
