@@ -14,6 +14,7 @@ public class BlackHole extends Entity {
         this.image = image;
         this.position = position;
         AssetLoader.playRandSpawnSound();
+        hp = 10;
     }
 
 

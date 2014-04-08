@@ -18,7 +18,7 @@ public class EntityManager {
     private static ArrayList<Entity> addedEntities = new ArrayList<Entity>();
     public static ArrayList<Entity> enemies = new ArrayList<Entity>();
     private static ArrayList<Entity> bullets = new ArrayList<Entity>();
-    public static ArrayList<Entity> blackHoles = new ArrayList<Entity>();
+    //public static ArrayList<Entity> blackHoles = new ArrayList<Entity>();
     private static Entity player = new Entity();
 
 
@@ -26,10 +26,8 @@ public class EntityManager {
         if (!isUpdating)
             if (entity.getClass().equals(Bullet.class))
                 bullets.add(entity);
-            else if ((entity instanceof Seeker) || (entity instanceof Wanderer))
+            else if ((entity instanceof Seeker) || (entity instanceof Wanderer) || (entity instanceof BlackHole))
                 enemies.add(entity);
-            else if (entity instanceof BlackHole)
-                blackHoles.add(entity);
             else
                 player = entity;
             else
@@ -45,9 +43,6 @@ public class EntityManager {
         for (Entity item : enemies)
             item.update();
 
-        for (Entity item : blackHoles)
-            item.update();
-
         player.update();
 
         isUpdating = false;
@@ -56,10 +51,8 @@ public class EntityManager {
         for (Entity item : addedEntities) {
             if (item instanceof Bullet)
                 bullets.add(item);
-            else if ((item instanceof Seeker) || (item instanceof Wanderer))
+            else if ((item instanceof Seeker) || (item instanceof Wanderer) || (item instanceof BlackHole))
                 enemies.add(item);
-            else if (item instanceof BlackHole)
-                blackHoles.add(item);
             else
                 player = item;
         }
@@ -82,14 +75,6 @@ public class EntityManager {
             }
         }
 
-        // Remove any expired blackHole entities
-        for (Iterator<Entity> it = blackHoles.iterator(); it.hasNext(); ) {
-            Entity item = it.next();
-            if (item.isExpired) {
-                it.remove();
-            }
-        }
-
         handleCollisions();
     }
 
@@ -97,8 +82,6 @@ public class EntityManager {
         for (Entity item : bullets)
             item.draw(spriteBatch);
         for (Entity item : enemies)
-            item.draw(spriteBatch);
-        for (Entity item : blackHoles)
             item.draw(spriteBatch);
         player.draw(spriteBatch);
     }
@@ -123,13 +106,12 @@ public class EntityManager {
         for (int i = 0; i < enemies.size(); i++) {
             for (int j = 0; j < bullets.size(); j++) {
                 if (isColliding(enemies.get(i), bullets.get(j))) {
-                    PlayerStatus.addPoints(enemies.get(i).killingPoints);
+
                     PlayerStatus.checkMultiplier();
                     PlayerStatus.multiplierTimeStart();
-                    enemies.get(i).wasShot();
+                    enemies.get(i).wasShot(i);
                     AssetLoader.playRandExplosionSound();
                     ((Bullet) bullets.get(j)).isExpired = true;
-
                 }
             }
         }
@@ -141,13 +123,33 @@ public class EntityManager {
                 AssetLoader.playRandExplosionSound();
                 PlayerStatus.removeLife();
                 for (Entity item : enemies)
-                    item.wasShot();
+                    item.destroyEnemy();
                 if (PlayerStatus.getLives() <= 0) {
                     GameWorld.setCurrentStateGameOver();
                 }
                 break;
             }
         }
+    }
+
+    private void handleGravity(float tpf){
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i) instanceof BlackHole){
+                int radius = 50;
+
+                // Checking the player
+                if (isNearby(player, enemies.get(i), radius)) {
+                   // applyGravity(enemies.get(i), player, tpf);
+                }
+            }
+
+        }
+    }
+
+    private boolean isNearby(Entity a, Entity b, float distance) {
+        Vector2 posA = new Vector2(a.position);
+        Vector2 posB = new Vector2(b.position);
+        return posA.sub(posB).len2() <= distance * distance;
     }
 
 

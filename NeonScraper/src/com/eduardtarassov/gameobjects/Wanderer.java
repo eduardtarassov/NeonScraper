@@ -21,8 +21,8 @@ public class Wanderer extends Entity {
         this.velocity = new Vector2(0, 0);
         killingPoints = 1;
         AssetLoader.playRandSpawnSound();
+        hp = 1;
     }
-
 
     @Override
     public void update() {
@@ -36,35 +36,6 @@ public class Wanderer extends Entity {
         position.add(velocity);
         velocity.scl(0.8f);
     }
-
-   /* private void moveInASquare() {
-        final int framesPerSide = 30;
-        while (isActive()) {
-            // Move right for 30 frames
-            for (int i = 0; i < framesPerSide; i++) {
-                velocity = new Vector2(1, 0);
-                Thread.yield();
-            }
-
-            //Move down for 30 frames
-            for (int i = 0; i < framesPerSide; i++) {
-                velocity = new Vector2(0, -1);
-                Thread.yield();
-            }
-
-            //Move left for 30 frames
-            for (int i = 0; i < framesPerSide; i++) {
-                velocity = new Vector2(-1, 0);
-                Thread.yield();
-            }
-
-            //Move up for 30 frames
-            for (int i = 0; i < framesPerSide; i++) {
-                velocity = new Vector2(0, 1);
-                Thread.yield();
-            }
-        }
-    } */
 
     private void moveRandomly() {
 

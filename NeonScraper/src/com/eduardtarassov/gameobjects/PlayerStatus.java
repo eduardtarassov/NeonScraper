@@ -42,10 +42,6 @@ public class PlayerStatus {
            long currentTime = System.currentTimeMillis();
            long value = currentTime - multiplierTimeStart;
 
-           System.out.println("This is your startTime: " + multiplierTimeStart);
-           System.out.println("This is your currentTime: " + currentTime);
-           System.out.println("This is your value: " + value);
-
            if (value >= multiplierTimeLeft){
               multiplierTimeLeft = multiplierExpiryTime;
                resetMultiplier();
