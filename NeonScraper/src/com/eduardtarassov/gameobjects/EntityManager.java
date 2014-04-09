@@ -26,10 +26,10 @@ public class EntityManager {
         if (!isUpdating)
             if (entity.getClass().equals(Bullet.class))
                 bullets.add(entity);
-            else if ((entity instanceof Seeker) || (entity instanceof Wanderer) || (entity instanceof GreenHole))
-                enemies.add(entity);
-            else
+            else if (entity instanceof PlayerShip)
                 player = entity;
+            else
+                enemies.add(entity);
         else
             addedEntities.add(entity);
     }
@@ -74,9 +74,9 @@ public class EntityManager {
                 it.remove();
             }
         }
-
-        handleGravity(delta);
         handleCollisions();
+        handleGravity(delta);
+
     }
 
     public static void draw(SpriteBatch spriteBatch) {
@@ -97,8 +97,14 @@ public class EntityManager {
         for (int i = 0; i < enemies.size(); i++) {
             for (int j = i + 1; j < enemies.size(); j++) {
                 if (isColliding(enemies.get(i), enemies.get(j))) {
-                    enemies.get(i).handleCollision(enemies.get(j));
+                   if ((! (enemies.get(i) instanceof OrangeHole)) && (! (enemies.get(i) instanceof OrangeHole))){
+                       enemies.get(i).handleCollision(enemies.get(j));
                     enemies.get(j).handleCollision(enemies.get(i));
+                   }
+                    else {
+                       enemies.get(i).wasShot(i);
+                    enemies.get(j).wasShot(j);
+                   }
                 }
             }
         }
@@ -119,8 +125,9 @@ public class EntityManager {
 
         // Handles collisions between the player and enemies
         for (int i = 0; i < enemies.size(); i++) {
-            if (((enemies.get(i)).isActive()) && (isColliding(PlayerShip.instance, enemies.get(i)))) {
+            if (isColliding(PlayerShip.instance, enemies.get(i))) {
                 PlayerShip.instance.kill();
+                EnemySpawner.reset();
                 AssetLoader.playRandExplosionSound();
                 PlayerStatus.removeLife();
                 for (Entity item : enemies)
@@ -135,7 +142,7 @@ public class EntityManager {
 
     public static void handleGravity(float delta) {
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i) instanceof GreenHole) {
+            if ((enemies.get(i) instanceof GreenHole) || (enemies.get(i) instanceof OrangeHole)) {
                 int radius = 300;
                 // Checking the player
                 if (isNearby(player, enemies.get(i), radius)) {
@@ -172,17 +179,19 @@ public class EntityManager {
 
         Vector2 gravity = new Vector2(difference).nor().scl(delta);
         float distance = difference.len();
+                int pressureType = (blackHole instanceof OrangeHole) ? 1 : -1;
 
         if (target instanceof PlayerShip) {
             gravity.scl(250f/distance);
-            target.applyGravity(new Vector2(gravity).scl(-80f));  // We can set the gravity multiplied internally, I think.
+
+            target.applyGravity(new Vector2(gravity).scl(80f * pressureType));  // We can set the gravity multiplied internally, I think.
         } else if (target instanceof Bullet) {
             gravity.scl(250f/distance);
-            target.applyGravity(new Vector2(gravity).scl(-80f));
+            target.applyGravity(new Vector2(gravity).scl(80f * pressureType));
         } else if (target instanceof Seeker) {
-            target.applyGravity(new Vector2(gravity).scl(-100f));
+            target.applyGravity(new Vector2(gravity).scl(100f * pressureType));
         } else if (target instanceof Wanderer) {
-            target.applyGravity(new Vector2(gravity).scl(-80f));
+            target.applyGravity(new Vector2(gravity).scl(80f * pressureType));
         }
     }
 

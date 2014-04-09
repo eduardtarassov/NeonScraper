@@ -5,25 +5,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.nshelpers.AssetLoader;
 
 /**
- * Created by Eduard on 08/04/14.
+ * Created by Eduard on 09/04/14.
  */
-public class GreenHole extends Entity {
-    private final long greenHoleStart = System.currentTimeMillis();
+public class OrangeHole extends Entity {
+    private final long orangeHoleStart = System.currentTimeMillis();
 
-    public GreenHole(TextureRegion image, Vector2 position) {
+    public OrangeHole(TextureRegion image, Vector2 position) {
         this.image = image;
         this.position = position;
         AssetLoader.playRandSpawnSound();
-        hp = 1000;
+        hp = 10;
     }
 
 
     @Override
     public void update(float delta) {
-        if (System.currentTimeMillis() - greenHoleStart > 35000)
+        if (System.currentTimeMillis() - orangeHoleStart > 35000)
             isExpired = true;
-
     }
 }
-
-

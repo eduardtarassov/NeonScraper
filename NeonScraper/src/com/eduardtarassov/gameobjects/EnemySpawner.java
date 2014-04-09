@@ -24,18 +24,24 @@ public class EnemySpawner {
                 EntityManager.addEntity(new Wanderer(AssetLoader.wanderer, getSpawnPosition()));
 
 
-           // System.out.println("This is the change in your time: " + (currentTime - startTimeHole));
-                if ((System.currentTimeMillis() - startTimeHole > 15000) && (new Random().nextInt(400) == 0)){
-                        EntityManager.addEntity(new GreenHole(AssetLoader.greenhole, getSpawnPosition()));
-                    startTimeHole = System.currentTimeMillis();
-                    }
+            // System.out.println("This is the change in your time: " + (currentTime - startTimeHole));
+            if (System.currentTimeMillis() - startTimeHole > 15000) {
+                if (new Random().nextInt(400) == 0){
+                    EntityManager.addEntity(new GreenHole(AssetLoader.greenhole, getSpawnPosition()));
+                startTimeHole = System.currentTimeMillis();
+            }
+            if (new Random().nextInt(400) == 0) {
+                EntityManager.addEntity(new OrangeHole(AssetLoader.orangehole, getSpawnPosition()));
+                startTimeHole = System.currentTimeMillis();
+            }
 
 
-                }
-    // Increasing the spawn rate during the game to increase difficulty
-    if(inverseSpawnChance>100)
-    inverseSpawnChance-=0.0000005f;
-}
+        }
+        // Increasing the spawn rate during the game to increase difficulty
+        if (inverseSpawnChance > 100)
+            inverseSpawnChance -= 0.0000005f;
+    }
+    }
 
 
     private static Vector2 getSpawnPosition() {
@@ -49,6 +55,6 @@ public class EnemySpawner {
     }
 
     public static void reset() {
-        inverseSpawnChance = 60;
+        inverseSpawnChance = 400;
     }
 }
