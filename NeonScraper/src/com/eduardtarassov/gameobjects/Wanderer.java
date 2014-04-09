@@ -17,7 +17,6 @@ public class Wanderer extends Entity {
         this.image = image;
         this.position = position;
         radius = image.getRegionWidth() / 2.0f;
-        // color = Color.CLEAR;
         this.velocity = new Vector2(0, 0);
         killingPoints = 1;
         AssetLoader.playRandSpawnSound();
@@ -25,7 +24,7 @@ public class Wanderer extends Entity {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if (timeUntilStart <= 0) {
             moveRandomly();
         } else {
@@ -57,6 +56,8 @@ public class Wanderer extends Entity {
             orientation -= 10f;
 
     }
+
+
 }
 
 

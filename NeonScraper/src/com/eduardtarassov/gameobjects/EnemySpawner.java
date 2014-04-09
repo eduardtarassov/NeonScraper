@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class EnemySpawner {
     private static int inverseSpawnChance = 400;
-    private static float startTimeHole = System.currentTimeMillis();
+    private static long startTimeHole = 0;
 
     public static void update() {
         if (!PlayerShip.instance.isDead() && EntityManager.enemies.size() < 200) {
@@ -24,10 +24,9 @@ public class EnemySpawner {
                 EntityManager.addEntity(new Wanderer(AssetLoader.wanderer, getSpawnPosition()));
 
 
-            float currentTime = System.currentTimeMillis();
-
-                if ((currentTime - startTimeHole > 10000) && (new Random().nextInt(300) == 0)){
-                        EntityManager.addEntity(new BlackHole(AssetLoader.hole, getSpawnPosition()));
+           // System.out.println("This is the change in your time: " + (currentTime - startTimeHole));
+                if ((System.currentTimeMillis() - startTimeHole > 15000) && (new Random().nextInt(400) == 0)){
+                        EntityManager.addEntity(new GreenHole(AssetLoader.greenhole, getSpawnPosition()));
                     startTimeHole = System.currentTimeMillis();
                     }
 
@@ -35,7 +34,7 @@ public class EnemySpawner {
                 }
     // Increasing the spawn rate during the game to increase difficulty
     if(inverseSpawnChance>100)
-    inverseSpawnChance-=0.0005f;
+    inverseSpawnChance-=0.0000005f;
 }
 
 

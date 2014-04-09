@@ -19,7 +19,7 @@ public class Bullet extends Entity {
     }
 
     @Override
-    public void update()
+    public void update(float delta)
     {
          velocity.nor();
         velocity.scl(10);
@@ -35,5 +35,4 @@ public class Bullet extends Entity {
 
         }
     }
-
 }

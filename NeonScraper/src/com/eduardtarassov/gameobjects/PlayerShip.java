@@ -32,7 +32,7 @@ public class PlayerShip extends Entity {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if (isDead()) {
             framesUntilRespawn--;
             return;
@@ -40,7 +40,6 @@ public class PlayerShip extends Entity {
 
         // Method that is responsible for player movement.
         motionMove();
-
     }
 
     public void motionMove() {

@@ -26,24 +26,24 @@ public class EntityManager {
         if (!isUpdating)
             if (entity.getClass().equals(Bullet.class))
                 bullets.add(entity);
-            else if ((entity instanceof Seeker) || (entity instanceof Wanderer) || (entity instanceof BlackHole))
+            else if ((entity instanceof Seeker) || (entity instanceof Wanderer) || (entity instanceof GreenHole))
                 enemies.add(entity);
             else
                 player = entity;
-            else
+        else
             addedEntities.add(entity);
-        }
+    }
 
-    public static void update() {
+    public static void update(float delta) {
         isUpdating = true;
 
         for (Entity item : bullets)
-            item.update();
+            item.update(delta);
 
         for (Entity item : enemies)
-            item.update();
+            item.update(delta);
 
-        player.update();
+        player.update(delta);
 
         isUpdating = false;
 
@@ -51,7 +51,7 @@ public class EntityManager {
         for (Entity item : addedEntities) {
             if (item instanceof Bullet)
                 bullets.add(item);
-            else if ((item instanceof Seeker) || (item instanceof Wanderer) || (item instanceof BlackHole))
+            else if ((item instanceof Seeker) || (item instanceof Wanderer) || (item instanceof GreenHole))
                 enemies.add(item);
             else
                 player = item;
@@ -75,6 +75,7 @@ public class EntityManager {
             }
         }
 
+        handleGravity(delta);
         handleCollisions();
     }
 
@@ -132,24 +133,57 @@ public class EntityManager {
         }
     }
 
-    private void handleGravity(float tpf){
+    public static void handleGravity(float delta) {
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i) instanceof BlackHole){
-                int radius = 50;
-
+            if (enemies.get(i) instanceof GreenHole) {
+                int radius = 300;
                 // Checking the player
                 if (isNearby(player, enemies.get(i), radius)) {
-                   // applyGravity(enemies.get(i), player, tpf);
+                    applyGravity(enemies.get(i), player, delta);
+                }
+
+                // Checking bullets
+                for (int j = 0; j < bullets.size(); j++) {
+                    if (isNearby(bullets.get(j), enemies.get(i), radius)) {
+                        applyGravity(enemies.get(i), bullets.get(j), delta);
+                    }
+                }
+
+                // Checking enemies
+                for (int j = 0; j < enemies.size(); j++) {
+                    if (!(enemies.get(j) instanceof GreenHole))
+                        if (isNearby(enemies.get(j), enemies.get(i), radius)) {
+                            applyGravity(enemies.get(i), enemies.get(j), delta);
+                        }
                 }
             }
 
         }
     }
 
-    private boolean isNearby(Entity a, Entity b, float distance) {
+    private static boolean isNearby(Entity a, Entity b, float distance) {
         Vector2 posA = new Vector2(a.position);
         Vector2 posB = new Vector2(b.position);
         return posA.sub(posB).len2() <= distance * distance;
+    }
+
+    private static void applyGravity(Entity blackHole, Entity target, float delta) {
+        Vector2 difference = new Vector2(blackHole.position).sub(target.position);
+
+        Vector2 gravity = new Vector2(difference).nor().scl(delta);
+        float distance = difference.len();
+
+        if (target instanceof PlayerShip) {
+            gravity.scl(250f/distance);
+            target.applyGravity(new Vector2(gravity).scl(-80f));  // We can set the gravity multiplied internally, I think.
+        } else if (target instanceof Bullet) {
+            gravity.scl(250f/distance);
+            target.applyGravity(new Vector2(gravity).scl(-80f));
+        } else if (target instanceof Seeker) {
+            target.applyGravity(new Vector2(gravity).scl(-100f));
+        } else if (target instanceof Wanderer) {
+            target.applyGravity(new Vector2(gravity).scl(-80f));
+        }
     }
 
 

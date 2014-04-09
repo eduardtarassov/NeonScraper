@@ -56,8 +56,8 @@ public class GameWorld {
        /* if (delta > .15f)
             delta = .15f; */ // Maybe we will require this in the future. To set the same game speed working on all devices. Also see usage of delta in ZombieBird game.
 
-        EntityManager.update();
-        playerShip.update();
+        EntityManager.update(delta);
+        playerShip.update(delta);
         EnemySpawner.update();
     }
 

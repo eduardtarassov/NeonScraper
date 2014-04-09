@@ -30,8 +30,9 @@ public class Entity {
         return image == null ? Vector2.Zero : new Vector2(image.getRegionWidth(), image.getRegionHeight());
     }    */
 
-    public void update() {
+    public void update(float delta) {
         position.add(velocity);
+        EntityManager.handleGravity(delta);
     }
 
     public void draw(SpriteBatch spriteBatch) {
@@ -71,6 +72,10 @@ public class Entity {
 
     public boolean isActive() {
         return timeUntilStart <= 0;
+    }
+
+    public void applyGravity(Vector2 gravity){
+        position.add(gravity);
     }
 }
 

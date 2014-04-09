@@ -33,7 +33,7 @@ public class Seeker extends Entity {
 
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if (timeUntilStart <= 0) {
             followPlayer();
         } else {
@@ -52,4 +52,5 @@ public class Seeker extends Entity {
         //if (velocity != Vector2.Zero)
             orientation = velocity.angle();
     }
+
 }
