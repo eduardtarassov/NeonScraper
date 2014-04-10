@@ -139,7 +139,7 @@ public class GameRenderer {
             EntityManager.draw(spriteBatch);
             drawScore();
             drawLives();
-
+           // spriteBatch.draw(AssetLoader.lineParticle, Constants.MIDPOINTX, Constants.MIDPOINTY, AssetLoader.lineParticle.getRegionWidth() / 2.0f, AssetLoader.lineParticle.getRegionHeight() / 2.0f, AssetLoader.lineParticle.getRegionWidth(), AssetLoader.lineParticle.getRegionHeight(), 1f, 1f, 0, false);
 
             GameWorld.particleManager.draw(spriteBatch);
         } else if (myWorld.isReady()) {

@@ -8,6 +8,7 @@ import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.particles.ParticleState;
 import com.eduardtarassov.particles.ParticleType;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import javax.swing.text.Position;
 import java.util.Random;
@@ -20,7 +21,7 @@ public class Entity {
     public TextureRegion image;
     // The tint of the image. This will also allow us to change the transparency.
     //  protected Color color = Color.WHITE;
-    public Vector2 position; // NOT FORGET TO MAKE IT PROTECTE
+    protected Vector2 position; // NOT FORGET TO MAKE IT PROTECTED
     protected Vector2 velocity, direction;
     protected float orientation;
     protected int timeUntilStart = 60;
@@ -70,15 +71,18 @@ public class Entity {
             AssetLoader.playRandExplosionSound();
             PlayerStatus.addPoints(EntityManager.enemies.get(enemyNo).killingPoints);
             isExpired = true;
-
+            ParticleState state;
             // Particles Explosion
-           /* for (int i = 0; i < 120; i++)
-            { */
-                float speed = 18f * (1f - 1 / rand.nextFloat()*(10f - 1f) + 1f);
-                ParticleState state = new ParticleState(new Vector2(speed, speed), ParticleType.Enemy, 1f);
+            for (int i = 0; i < 2; i++)
+            {
+                float speed = 2f * (rand.nextFloat()*(10f + 10f) - 10f);
+            float speed2 = 2f * (rand.nextFloat()*(10f + 10f) - 10f);
+           //float speed2 = 0.7f * (1f - 1 / rand.nextFloat()*(10f - 1f) + 1f);
+                state = new ParticleState(new Vector2(speed, speed2), ParticleType.Enemy, 1f);
+            System.out.println("This is your entity position: " + position.x + "       " + position.y);
 
                 GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, Color.GREEN, 190, new Vector2(1.5f, 1.5f), state);
-           /* } */
+            }
         }
     }
 

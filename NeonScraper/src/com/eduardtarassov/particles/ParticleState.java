@@ -19,10 +19,12 @@ public class ParticleState {
     public static void updateParticle(Particle particle)
     {
         if(particle.state.velocity != null){
+
         Vector2 vel = particle.state.velocity;
 
         particle.position.add(vel);
         particle.orientation = vel.angle();
+            System.out.println("This is particle position: " + particle.position.x + "       " + particle.position.y);
 
         // denormalized floats cause significant performance issues
         if (Math.abs(vel.x) + Math.abs(vel.y) < 0.00000000001f)

@@ -86,7 +86,7 @@ public class ParticleManager {
         for (int i = 0; i < particleList.getCount(); i++)
         {
             Particle particle = particleList.getElement(i);
-            spriteBatch.draw(particle.texture, particle.position.x, particle.position.y, particle.texture.getRegionWidth() / 2.0f, particle.texture.getRegionHeight() / 2.0f, particle.texture.getRegionWidth(), particle.texture.getRegionHeight(), 0, 0, particle.orientation, false);
+            spriteBatch.draw(particle.texture, particle.position.x, particle.position.y, particle.texture.getRegionWidth() / 2.0f, particle.texture.getRegionHeight() / 2.0f, particle.texture.getRegionWidth(), particle.texture.getRegionHeight(), 1f, 1f, particle.orientation, false);
         }
     }
     }
