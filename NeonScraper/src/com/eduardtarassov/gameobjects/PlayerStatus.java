@@ -4,6 +4,9 @@ package com.eduardtarassov.gameobjects;
  * This class is responsible for tracking player score, high score and his lives.
  * Created by Eduard on 28/03/14.
  */
+
+import java.io.*;
+
 public class PlayerStatus {
    // Amount of time to expire the multiplier of score points.
     private static final float multiplierExpiryTime = 2000;
@@ -16,7 +19,6 @@ public class PlayerStatus {
     // Time until the current multiplier expires
     private static float multiplierTimeLeft;
     private static long multiplierTimeStart = 0;
-    private static float multiplierTimeElapsed = 0;
     // Score required to gain an extra life
     private static int scoreForExtraLife;
 
@@ -84,14 +86,6 @@ public class PlayerStatus {
     public static void removeLife()
     {
         lives--;
-    }
-
-    public static void setScore(int score) {
-        PlayerStatus.score = score;
-    }
-
-    public static void setMultiplier(int multiplier) {
-        PlayerStatus.multiplier = multiplier;
     }
 
     public static int getLives(){

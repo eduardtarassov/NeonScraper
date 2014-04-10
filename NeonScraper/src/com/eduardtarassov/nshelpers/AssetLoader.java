@@ -17,8 +17,8 @@ import java.util.Random;
 public class AssetLoader {
 
     private static Texture texture, logoTexture;
-    public static TextureRegion player, seeker, wanderer, bullet, greenhole, orangehole, logo, playButtonUp, playButtonDown;
-    public static BitmapFont font, shadow;
+    public static TextureRegion player, seeker, wanderer, bullet, greenhole, orangehole, lineParticle, logo, playButtonUp, playButtonDown;
+    public static BitmapFont font, fontH, shadow;
     public static ArrayList<Sound> explosionS = new ArrayList();
     public static ArrayList<Sound> spawnS = new ArrayList();
     public static ArrayList<Sound> shootS = new ArrayList();
@@ -46,6 +46,8 @@ public class AssetLoader {
         greenhole.flip(false, true);
         orangehole = new TextureRegion(texture, 161, 0, 40, 40);
         orangehole.flip(false, true);
+        lineParticle = new TextureRegion(texture, 202, 0, 18, 4);
+        lineParticle.flip(false, true);
         playButtonUp = new TextureRegion(texture, 161, 0, 35, 16);
         playButtonUp.flip(false, true);
         playButtonDown = new TextureRegion(texture, 197, 0, 35, 16);
@@ -56,6 +58,8 @@ public class AssetLoader {
 
         font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
         font.setScale(1f);
+        fontH = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+        fontH.setScale(1.5f);
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
         shadow.setScale(1f);
 

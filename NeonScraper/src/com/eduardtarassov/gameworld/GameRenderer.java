@@ -16,6 +16,7 @@ import com.eduardtarassov.gameobjects.PlayerStatus;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
 import com.eduardtarassov.nshelpers.TouchInputHandler;
+import com.eduardtarassov.particles.ParticleManager;
 import com.eduardtarassov.ui.SimpleButton;
 
 import java.util.List;
@@ -102,6 +103,7 @@ public class GameRenderer {
         int length = ("Lives: " + PlayerStatus.getLives()).length();
         AssetLoader.font.draw(spriteBatch, "Lives: " + PlayerStatus.getLives(),
                 Constants.WIDTH - (24 * length), Constants.HEIGHT - 15);
+
     }
 
     public void render(float delta, float runTime) {
@@ -137,12 +139,15 @@ public class GameRenderer {
             EntityManager.draw(spriteBatch);
             drawScore();
             drawLives();
+
+
+            GameWorld.particleManager.draw(spriteBatch);
         } else if (myWorld.isReady()) {
             //drawScore();
         } else if (myWorld.isMenu()) {
             drawMenuUI();
         } else if (myWorld.isGameOver()) {
-            //drawScore();
+            drawGameOver();
         } else if (myWorld.isHighScore()) {
             //drawScore();
         }
@@ -151,5 +156,16 @@ public class GameRenderer {
         spriteBatch.end();
 
     }
+
+     private void drawGameOver(){
+         AssetLoader.fontH.draw(spriteBatch, "Game Over",
+                 Constants.MIDPOINTX - 330, Constants.MIDPOINTY + 125);
+         int length = ("Your score: " + PlayerStatus.getScore()).length();
+         AssetLoader.fontH.draw(spriteBatch, "Your score: " + PlayerStatus.getScore(),
+                 Constants.MIDPOINTX - (24 * length), Constants.MIDPOINTY + 25);
+         /*length = ("High score: " + PlayerStatus.loadHighScore()).length();
+         AssetLoader.fontH.draw(spriteBatch, "High score: " + PlayerStatus.loadHighScore(),
+                 Constants.MIDPOINTX - (24 * length), Constants.MIDPOINTY - 75); */
+     }
 
 }

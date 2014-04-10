@@ -18,6 +18,8 @@ public class EntityManager {
     private static ArrayList<Entity> addedEntities = new ArrayList<Entity>();
     public static ArrayList<Entity> enemies = new ArrayList<Entity>();
     private static ArrayList<Entity> bullets = new ArrayList<Entity>();
+
+
     //public static ArrayList<Entity> blackHoles = new ArrayList<Entity>();
     private static Entity player = new Entity();
 
@@ -133,6 +135,8 @@ public class EntityManager {
                 for (Entity item : enemies)
                     item.destroyEnemy();
                 if (PlayerStatus.getLives() <= 0) {
+                    /*if (PlayerStatus.getScore() > PlayerStatus.loadHighScore())
+                        PlayerStatus.saveHighScore();*/
                     GameWorld.setCurrentStateGameOver();
                 }
                 break;

@@ -4,7 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.AssetLoader;
+import com.eduardtarassov.particles.ParticleState;
+import com.eduardtarassov.particles.ParticleType;
+
+import javax.swing.text.Position;
+import java.util.Random;
 
 /**
  * Created by Eduard on 3/10/14.
@@ -20,6 +26,7 @@ public class Entity {
     protected int timeUntilStart = 60;
     protected int killingPoints;
     protected int hp;
+    private Random rand = new Random();
 
     // We will use radius for circular collision detection.
     protected float radius = 20;
@@ -63,6 +70,15 @@ public class Entity {
             AssetLoader.playRandExplosionSound();
             PlayerStatus.addPoints(EntityManager.enemies.get(enemyNo).killingPoints);
             isExpired = true;
+
+            // Particles Explosion
+           /* for (int i = 0; i < 120; i++)
+            { */
+                float speed = 18f * (1f - 1 / rand.nextFloat()*(10f - 1f) + 1f);
+                ParticleState state = new ParticleState(new Vector2(speed, speed), ParticleType.Enemy, 1f);
+
+                GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, Color.GREEN, 190, new Vector2(1.5f, 1.5f), state);
+           /* } */
         }
     }
 

@@ -6,6 +6,7 @@ import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameobjects.PlayerStatus;
 import com.eduardtarassov.nshelpers.AssetLoader;
 import com.eduardtarassov.nshelpers.Constants;
+import com.eduardtarassov.particles.ParticleManager;
 
 /**
  * Created by Eduard on 3/10/2014.
@@ -17,6 +18,7 @@ public class GameWorld {
    /* private float runTime = 0;
     private int score = 0;  */
     private PlayerShip playerShip;
+    public static ParticleManager particleManager;
 
 
      enum GameState {
@@ -29,6 +31,7 @@ public class GameWorld {
         currentState = GameState.RUNNING;
         AssetLoader.music.play();
         playerShip = PlayerShip.getInstance();
+        particleManager = new ParticleManager(1024 * 20);
     }
 
     public void update(float delta) {
@@ -59,6 +62,7 @@ public class GameWorld {
         EntityManager.update(delta);
         playerShip.update(delta);
         EnemySpawner.update();
+        particleManager.update();
     }
 
    /* public void addScore(int increment) {
