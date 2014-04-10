@@ -20,6 +20,7 @@ public class TouchInputHandler implements InputProcessor {
     private static Vector3 aimDirection;
     public static boolean isAiming = false;
 
+
     private List<SimpleButton> menuButtons;
     private SimpleButton playButton;
 
