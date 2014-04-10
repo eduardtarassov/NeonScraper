@@ -30,31 +30,34 @@ public class ParticleManager {
     }
 
 
-    public void createParticle(TextureRegion texture, Vector2 position, Color color, float duration, Vector2 scale, ParticleState state)
+    public void createParticle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, Color color, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier, int no)
     {
         Particle particle;
-        if (particleList.getCount() == particleList.getCapacity())
+        /*if (particleList.getCount() == particleList.getCapacity())
         {
+            System.out.println("ERROR1");
             // if the list is full, overwrite the oldest particle, and rotate the circular list
             particle = particleList.getElement(0);
             particleList.setStart(particleList.getStart() + 1);
         }
         else
-        {
-            particleList.setElement(new Particle(), particleList.getCount());
-            particle = particleList.getElement(particleList.getCount() - 1);
-        }
+        { */
+            System.out.println("ERROR2");
+            particle = new Particle(texture, position, orientation, scale, color, duration, percentLife, velocity, type, lengthMultiplier, no);
+            particleList.setElement(particle, particleList.getCount());
+        //}
 
-        // Create the particle
+        System.out.println("particlelist SIZE: " + particleList.getCount());
+
+      /*  // Create the particle
         particle.texture = texture;
         particle.position = position;
         particle.color = color;
-
         particle.duration = duration;
         particle.percentLife = 1f;
         particle.scale = scale;
-        particle.orientation = 0;
-       particle.state = state;
+        particle.orientation = 0;  */
+
     }
 
     public void update(){
@@ -62,19 +65,21 @@ public class ParticleManager {
         for (int i = 0; i < particleList.getCount(); i++)
         {
             Particle particle = particleList.getElement(i);
-            ParticleState.updateParticle(particle);
+            particle.updateParticle();
             particle.percentLife -= 1f / particle.duration;
 
             // shift deleted particles to the end of the list
-            swap(particleList, i - removalCount, i);
+            //swap(particleList, i - removalCount, i);
 
             // if the particle has expired, delete this particle
-            if (particle.percentLife < 0)
-                removalCount++;
+           /* if (particle.percentLife < 0)
+                removalCount++; */
         }
     }
 
-    private static void swap(CircularParticleArray list, int index1, int index2)
+
+
+    private void swap(CircularParticleArray list, int index1, int index2)
     {
         Particle temp = list.getElement(index1);
         list.setElement(list.getElement(index2), index1);
@@ -85,8 +90,8 @@ public class ParticleManager {
     {
         for (int i = 0; i < particleList.getCount(); i++)
         {
-            Particle particle = particleList.getElement(i);
-            spriteBatch.draw(particle.texture, particle.position.x, particle.position.y, particle.texture.getRegionWidth() / 2.0f, particle.texture.getRegionHeight() / 2.0f, particle.texture.getRegionWidth(), particle.texture.getRegionHeight(), 1f, 1f, particle.orientation, false);
+            Particle currentParticle = particleList.getElement(i);
+            spriteBatch.draw(currentParticle.texture, currentParticle.position.x, currentParticle.position.y, currentParticle.texture.getRegionWidth() / 2.0f, currentParticle.texture.getRegionHeight() / 2.0f, currentParticle.texture.getRegionWidth(), currentParticle.texture.getRegionHeight(), 1f, 1f, currentParticle.orientation, false);
         }
     }
     }
