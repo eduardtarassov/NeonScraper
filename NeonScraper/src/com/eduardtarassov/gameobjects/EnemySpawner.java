@@ -39,7 +39,7 @@ public class EnemySpawner {
         }
         // Increasing the spawn rate during the game to increase difficulty
         if (inverseSpawnChance > 100)
-            inverseSpawnChance -= 0.001f;
+            inverseSpawnChance -= 0.01f;
     }
     }
 

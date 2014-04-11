@@ -69,7 +69,7 @@ public class Entity {
             AssetLoader.playRandExplosionSound();
             PlayerStatus.addPoints(EntityManager.enemies.get(enemyNo).killingPoints);
             isExpired = true;
-            GameWorld.particleManager.explosionHandler(position, 35, true);
+            GameWorld.particleManager.explosionHandler(position, 35, ParticleType.Enemy);
         }
     }
 

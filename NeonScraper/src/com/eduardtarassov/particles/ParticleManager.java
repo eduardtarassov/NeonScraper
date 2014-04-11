@@ -14,7 +14,7 @@ import java.util.Random;
  * Created by Eduard on 10/04/14.
  */
 public class ParticleManager {
-    private ArrayList<Particle> list;
+    public ArrayList<Particle> list;
     private Color[] particlesColor;
     private Random rand = new Random();
 
@@ -32,17 +32,17 @@ public class ParticleManager {
 
     }
 
-    public void createParticle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier, boolean enemy) {
+    public void createParticle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier) {
 
         // Deciding which color will particles be, for enemy they are red, light gray, violet and white. For bullets and player: white, green, bl
         Color color;
-        if (enemy)
+        if (type == ParticleType.Enemy)
             color = particlesColor[rand.nextInt(4)];
         else
             color = particlesColor[rand.nextInt((4 - 3) + 1) + 3];
 
         Particle particle;
-        particle = new Particle(texture, position, orientation, scale, color, duration, percentLife, velocity, type, lengthMultiplier, enemy);
+        particle = new Particle(texture, position, orientation, scale, color, duration, percentLife, velocity, type, lengthMultiplier);
         list.add(particle);
     }
 
@@ -69,14 +69,14 @@ public class ParticleManager {
         }
     }
 
-    public void explosionHandler(Vector2 position, float duration, boolean enemy){
+    public void explosionHandler(Vector2 position, float duration, ParticleType type){
         // Particles Explosion
         for (int i = 0; i < 120; i++) {
             float speed = 2f * (rand.nextFloat() * (10f + 10f) - 10f);
             float speed2 = 2f * (rand.nextFloat() * (10f + 10f) - 10f);
             Vector2 partVelocity = new Vector2(speed, speed2);
 
-            GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, partVelocity.angle(), new Vector2(1.5f, 1.5f), duration, 1f, partVelocity, ParticleType.Enemy, 1f, enemy);
+            GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, partVelocity.angle(), new Vector2(1.5f, 1.5f), duration, 1f, partVelocity, type, 1f);
         }
     }
 }

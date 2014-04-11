@@ -40,7 +40,7 @@ public class Bullet extends Entity {
         if ((position.x >= Constants.WIDTH) || (position.x <= 0) || (position.y >= Constants.HEIGHT) || position.y <= 0){
             isExpired = true;
 
-            GameWorld.particleManager.explosionHandler(position, 20, false);
+            GameWorld.particleManager.explosionHandler(position, 20, ParticleType.Bullet);
 
         }
     }

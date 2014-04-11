@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.AssetLoader;
+import com.eduardtarassov.particles.Particle;
 import com.eduardtarassov.particles.ParticleManager;
+import com.eduardtarassov.particles.ParticleType;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -133,7 +135,7 @@ public class EntityManager {
                 EnemySpawner.reset();
                 AssetLoader.playRandExplosionSound();
                 PlayerStatus.removeLife();
-                GameWorld.particleManager.explosionHandler(PlayerShip.getInstance().position, 50, false);
+                GameWorld.particleManager.explosionHandler(PlayerShip.getInstance().position, 50, ParticleType.Player);
                 for (Entity item : enemies)
                     item.destroyEnemy();
                 if (PlayerStatus.getLives() <= 0) {
@@ -164,13 +166,20 @@ public class EntityManager {
 
                 // Checking enemies
                 for (int j = 0; j < enemies.size(); j++) {
-                    if (!(enemies.get(j) instanceof GreenHole))
+                    if (!(enemies.get(j) instanceof GreenHole) || !(enemies.get(j) instanceof OrangeHole))
                         if (isNearby(enemies.get(j), enemies.get(i), radius)) {
                             applyGravity(enemies.get(i), enemies.get(j), delta);
                         }
                 }
-            }
 
+                for (int j = 0; j < GameWorld.particleManager.list.size(); j++){
+                    Vector2 posP = new Vector2(GameWorld.particleManager.list.get(j).position);
+                    Vector2 posH = new Vector2(enemies.get(i).getPosition());
+                    if (posP.sub(posH).len2() <= radius * radius)
+                        applyParticlesGravity(enemies.get(i), GameWorld.particleManager.list.get(j), delta);
+                }
+
+            }
         }
     }
 
@@ -180,12 +189,12 @@ public class EntityManager {
         return posA.sub(posB).len2() <= distance * distance;
     }
 
-    private static void applyGravity(Entity blackHole, Entity target, float delta) {
-        Vector2 difference = new Vector2(blackHole.position).sub(target.position);
+    private static void applyGravity(Entity hole, Entity target, float delta) {
+        Vector2 difference = new Vector2(hole.position).sub(target.position);
 
         Vector2 gravity = new Vector2(difference).nor().scl(delta);
         float distance = difference.len();
-                int pressureType = (blackHole instanceof OrangeHole) ? 1 : -1;
+                int pressureType = (hole instanceof OrangeHole) ? 1 : -1;
 
         if (target instanceof PlayerShip) {
             gravity.scl(250f/distance);
@@ -199,6 +208,16 @@ public class EntityManager {
         } else if (target instanceof Wanderer) {
             target.applyGravity(new Vector2(gravity).scl(80f * pressureType));
         }
+    }
+
+    private static void applyParticlesGravity(Entity hole, Particle target, float delta){
+        Vector2 difference = new Vector2(hole.position).sub(target.position);
+        Vector2 gravity = new Vector2(difference).nor().scl(delta);
+        float distance = difference.len();
+        int pressureType = (hole instanceof OrangeHole) ? 1 : -1;
+        gravity.scl(250f/distance);
+
+        target.applyGravity(new Vector2(gravity).scl(80f * pressureType));
     }
 
 
