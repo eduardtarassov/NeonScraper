@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.AssetLoader;
 
+import com.eduardtarassov.particles.ParticleManager;
 import com.eduardtarassov.particles.ParticleType;
 import java.util.Random;
 
@@ -68,14 +69,7 @@ public class Entity {
             AssetLoader.playRandExplosionSound();
             PlayerStatus.addPoints(EntityManager.enemies.get(enemyNo).killingPoints);
             isExpired = true;
-            // Particles Explosion
-            for (int i = 0; i < 120; i++) {
-                float speed = 2f * (rand.nextFloat() * (10f + 10f) - 10f);
-                float speed2 = 2f * (rand.nextFloat() * (10f + 10f) - 10f);
-                Vector2 partVelocity = new Vector2(speed, speed2);
-
-                GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, partVelocity.angle(), new Vector2(1.5f, 1.5f), 35, 1f, partVelocity, ParticleType.Enemy, 1f, i);
-            }
+            GameWorld.particleManager.explosionHandler(position, 35, true);
         }
     }
 

@@ -21,9 +21,9 @@ public class Particle {
     public Vector2 velocity;
     public ParticleType type;
     public float lengthMultiplier;
-public int no;
+public boolean enemy;
 
-    public Particle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, Color color, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier, int no){
+    public Particle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, Color color, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier, boolean enemy){
         this.texture = texture;
         this.position = position;
         this.orientation = orientation;
@@ -34,7 +34,7 @@ public int no;
         this.velocity = velocity;
         this.type = type;
         this.lengthMultiplier = lengthMultiplier;
-        this.no = no;
+        this.enemy = enemy;
     }
 
     public void updateParticle()

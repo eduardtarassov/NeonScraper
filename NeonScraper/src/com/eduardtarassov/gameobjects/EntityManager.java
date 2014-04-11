@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.AssetLoader;
+import com.eduardtarassov.particles.ParticleManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -132,6 +133,7 @@ public class EntityManager {
                 EnemySpawner.reset();
                 AssetLoader.playRandExplosionSound();
                 PlayerStatus.removeLife();
+                GameWorld.particleManager.explosionHandler(PlayerShip.getInstance().position, 50, false);
                 for (Entity item : enemies)
                     item.destroyEnemy();
                 if (PlayerStatus.getLives() <= 0) {
