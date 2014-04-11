@@ -38,9 +38,9 @@ public class AssetLoader {
 
         seeker = new TextureRegion(texture, 0, 0, 40, 30);
         seeker.flip(false, true);
-        player = new TextureRegion(texture, 41, 0, 39, 40);
+        player = new TextureRegion(texture, 40, 0, 39, 40);
         player.flip(false, true);
-        wanderer = new TextureRegion(texture, 80, 0, 39, 40);
+        wanderer = new TextureRegion(texture, 79, 0, 39, 40);
         wanderer.flip(false, true);
         greenhole = new TextureRegion(texture, 119, 0, 40, 40);
         greenhole.flip(false, true);

@@ -3,6 +3,7 @@ package com.eduardtarassov.particles;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.eduardtarassov.nshelpers.Constants;
 
 /**
  * Created by Eduard on 10/04/14.
@@ -41,17 +42,21 @@ public int no;
         if(velocity != null){
 
             Vector2 vel = velocity;
-
             position = new Vector2(position.x + vel.x, position.y + vel.y);
+
+            if ((position.x >= Constants.WIDTH) || (position.x <= 0))
+                velocity.x *= -1;
+            else if ((position.y >= Constants.HEIGHT) || (position.y <= 0))
+                velocity.y *= -1;
+
             orientation = vel.angle();
-            System.out.println("This is particle no " + no + " position: " + position.x + "       " + position.y);
-            System.out.println("This is particle no " + no + " velocity: " + velocity.x + "       " + velocity.y);
             // denormalized floats cause significant performance issues
             if (Math.abs(vel.x) + Math.abs(vel.y) < 0.00000000001f)
                 vel = Vector2.Zero;
 
             vel.scl(0.97f);       // particles gradually slow down
             velocity = vel;
+            percentLife -= 1f / duration;
         }
     }
 }

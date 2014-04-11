@@ -5,7 +5,6 @@ import com.eduardtarassov.gameobjects.EntityManager;
 import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameobjects.PlayerStatus;
 import com.eduardtarassov.nshelpers.AssetLoader;
-import com.eduardtarassov.nshelpers.Constants;
 import com.eduardtarassov.particles.ParticleManager;
 
 /**
@@ -31,7 +30,7 @@ public class GameWorld {
         currentState = GameState.RUNNING;
         AssetLoader.music.play();
         playerShip = PlayerShip.getInstance();
-        particleManager = new ParticleManager(1024 * 20);
+        particleManager = new ParticleManager();
     }
 
     public void update(float delta) {

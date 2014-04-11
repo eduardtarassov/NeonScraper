@@ -2,14 +2,9 @@ package com.eduardtarassov.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
-import com.eduardtarassov.gameobjects.EntityManager;
-import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameworld.GameRenderer;
 import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.TouchInputHandler;
-import com.eduardtarassov.particles.ParticleManager;
-import com.eduardtarassov.particles.ParticleState;
 
 /**
  * Created by Eduard on 3/10/14.

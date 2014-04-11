@@ -1,97 +1,60 @@
 package com.eduardtarassov.particles;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Color;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Eduard on 10/04/14.
  */
 public class ParticleManager {
-  /*  // This delegate will be called for each particle.
-   private void updateParticle(Particle particle){
+    private ArrayList<Particle> list;
+    private Color[] particlesColor = new Color[4];
+    private Random rand = new Random();
 
-   }  */
-
-    private CircularParticleArray particleList;
-
-
-
-    public ParticleManager(int capacity)
+    public ParticleManager()
     {
-        //this.updateParticle = updateParticle;
-        particleList = new CircularParticleArray(capacity);
-
-        // Populate the list with empty particle objects, for reuse.
-       /* for (int i = 0; i < capacity; i++)
-            particleList.setElement(new Particle(), i);    */
+        list = new ArrayList<Particle>();
+        particlesColor[0] = Color.RED;
+        particlesColor[1] = Color.WHITE;
+        particlesColor[2] = Color.LIGHT_GRAY;
+        particlesColor[3] = new Color(6f, 0.5f, 1f, 1f);
     }
 
-
-    public void createParticle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, Color color, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier, int no)
+    public void createParticle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier, int no)
     {
+       Color color = particlesColor[rand.nextInt(4)];
         Particle particle;
-        /*if (particleList.getCount() == particleList.getCapacity())
-        {
-            System.out.println("ERROR1");
-            // if the list is full, overwrite the oldest particle, and rotate the circular list
-            particle = particleList.getElement(0);
-            particleList.setStart(particleList.getStart() + 1);
-        }
-        else
-        { */
-            System.out.println("ERROR2");
             particle = new Particle(texture, position, orientation, scale, color, duration, percentLife, velocity, type, lengthMultiplier, no);
-            particleList.setElement(particle, particleList.getCount());
-        //}
-
-        System.out.println("particlelist SIZE: " + particleList.getCount());
-
-      /*  // Create the particle
-        particle.texture = texture;
-        particle.position = position;
-        particle.color = color;
-        particle.duration = duration;
-        particle.percentLife = 1f;
-        particle.scale = scale;
-        particle.orientation = 0;  */
-
+            list.add(particle);
     }
 
     public void update(){
-        int removalCount = 0;
-        for (int i = 0; i < particleList.getCount(); i++)
+        for (int i = 0; i < list.size(); i++)
         {
-            Particle particle = particleList.getElement(i);
+            Particle particle = list.get(i);
             particle.updateParticle();
-            particle.percentLife -= 1f / particle.duration;
-
-            // shift deleted particles to the end of the list
-            //swap(particleList, i - removalCount, i);
-
-            // if the particle has expired, delete this particle
-           /* if (particle.percentLife < 0)
-                removalCount++; */
+            if (particle.percentLife <= 0){
+                list.remove(i);
+                i--;
+            }
         }
-    }
-
-
-
-    private void swap(CircularParticleArray list, int index1, int index2)
-    {
-        Particle temp = list.getElement(index1);
-        list.setElement(list.getElement(index2), index1);
-        list.setElement(temp, index2);
     }
 
     public void draw(SpriteBatch spriteBatch)
     {
-        for (int i = 0; i < particleList.getCount(); i++)
+        for (int i = 0; i < list.size(); i++)
         {
-            Particle currentParticle = particleList.getElement(i);
-            spriteBatch.draw(currentParticle.texture, currentParticle.position.x, currentParticle.position.y, currentParticle.texture.getRegionWidth() / 2.0f, currentParticle.texture.getRegionHeight() / 2.0f, currentParticle.texture.getRegionWidth(), currentParticle.texture.getRegionHeight(), 1f, 1f, currentParticle.orientation, false);
+            Color defaultColor;
+            defaultColor = spriteBatch.getColor();
+            Particle particle = list.get(i);
+            spriteBatch.setColor(particle.color);
+            spriteBatch.draw(particle.texture, particle.position.x, particle.position.y, particle.texture.getRegionWidth() / 2.0f, particle.texture.getRegionHeight() / 2.0f, particle.texture.getRegionWidth(), particle.texture.getRegionHeight(), 1f, 1f, particle.orientation, false);
+            spriteBatch.setColor(defaultColor);
+
         }
     }
     }

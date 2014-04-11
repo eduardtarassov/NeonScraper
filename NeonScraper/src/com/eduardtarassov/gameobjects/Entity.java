@@ -1,6 +1,5 @@
 package com.eduardtarassov.gameobjects;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -8,9 +7,6 @@ import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.AssetLoader;
 
 import com.eduardtarassov.particles.ParticleType;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import javax.swing.text.Position;
 import java.util.Random;
 
 /**
@@ -39,6 +35,7 @@ public class Entity {
     }    */
 
     public void update(float delta) {
+
         position.add(velocity);
         EntityManager.handleGravity(delta);
     }
@@ -67,21 +64,17 @@ public class Entity {
     public void wasShot(int enemyNo) {
         if (hp > 0)
             hp--;
-        else{
+        else {
             AssetLoader.playRandExplosionSound();
             PlayerStatus.addPoints(EntityManager.enemies.get(enemyNo).killingPoints);
             isExpired = true;
             // Particles Explosion
-            for (int i = 0; i < 3; i++)
-            {
-                float speed = 2f * (rand.nextFloat()*(10f + 10f) - 10f);
-            float speed2 = 2f * (rand.nextFloat()*(10f + 10f) - 10f);
-           //float speed2 = 0.7f * (1f - 1 / rand.nextFloat()*(10f - 1f) + 1f);
-                System.out.println("Particle No" + i + " velocity is: " + speed + "    " + speed2);
+            for (int i = 0; i < 120; i++) {
+                float speed = 2f * (rand.nextFloat() * (10f + 10f) - 10f);
+                float speed2 = 2f * (rand.nextFloat() * (10f + 10f) - 10f);
                 Vector2 partVelocity = new Vector2(speed, speed2);
-            //System.out.println("This is your entity position: " + position.x + "       " + position.y);
 
-                GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, partVelocity.angle(), new Vector2(1.5f, 1.5f), Color.GREEN, 190, 1f, partVelocity, ParticleType.Enemy, 1f, i);
+                GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, partVelocity.angle(), new Vector2(1.5f, 1.5f), 35, 1f, partVelocity, ParticleType.Enemy, 1f, i);
             }
         }
     }
@@ -94,7 +87,7 @@ public class Entity {
         return timeUntilStart <= 0;
     }
 
-    public void applyGravity(Vector2 gravity){
+    public void applyGravity(Vector2 gravity) {
         position.add(gravity);
     }
 }

@@ -39,7 +39,7 @@ public class EnemySpawner {
         }
         // Increasing the spawn rate during the game to increase difficulty
         if (inverseSpawnChance > 100)
-            inverseSpawnChance -= 0.0000005f;
+            inverseSpawnChance -= 0.001f;
     }
     }
 
@@ -49,7 +49,7 @@ public class EnemySpawner {
         do {
             pos = new Vector2((float) (Math.random() * (Constants.WIDTH)), (float) Math.random() * (Constants.HEIGHT));
         }
-        while (new Vector2(pos).sub(PlayerShip.instance.position).len2() < 20 * 20); // Enemy always at least 250 pixels away from player
+        while (new Vector2(pos).sub(PlayerShip.instance.position).len2() < Constants.WIDTH / 5 * Constants.WIDTH / 5); // Enemy always at least "Constants.WIDTH / 5" pixels away from player
 
         return pos;
     }
