@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Color;
+import com.eduardtarassov.gameobjects.PlayerShip;
 import com.eduardtarassov.gameworld.GameWorld;
 import com.eduardtarassov.nshelpers.AssetLoader;
 
@@ -32,14 +33,9 @@ public class ParticleManager {
 
     }
 
-    public void createParticle(TextureRegion texture, Vector2 position, float orientation, Vector2 scale, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier) {
+    public void createParticle(TextureRegion texture, Vector2 position, Color color, float orientation, Vector2 scale, float duration, float percentLife, Vector2 velocity, ParticleType type, float lengthMultiplier) {
 
-        // Deciding which color will particles be, for enemy they are red, light gray, violet and white. For bullets and player: white, green, bl
-        Color color;
-        if (type == ParticleType.Enemy)
-            color = particlesColor[rand.nextInt(4)];
-        else
-            color = particlesColor[rand.nextInt((4 - 3) + 1) + 3];
+
 
         Particle particle;
         particle = new Particle(texture, position, orientation, scale, color, duration, percentLife, velocity, type, lengthMultiplier);
@@ -76,7 +72,16 @@ public class ParticleManager {
             float speed2 = 2f * (rand.nextFloat() * (10f + 10f) - 10f);
             Vector2 partVelocity = new Vector2(speed, speed2);
 
-            GameWorld.particleManager.createParticle(AssetLoader.lineParticle, position, partVelocity.angle(), new Vector2(1.5f, 1.5f), duration, 1f, partVelocity, type, 1f);
+            // Deciding which color will particles be, for enemy they are red, light gray, violet and white. For bullets and player: white, green, bl
+            Color color;
+            if (type == ParticleType.Enemy)
+                color = particlesColor[rand.nextInt(4)];
+            else
+                color = particlesColor[rand.nextInt((4 - 3) + 1) + 3];
+
+            GameWorld.particleManager.createParticle(AssetLoader.glow, position, color, partVelocity.angle(), new Vector2(1.5f, 1.5f), duration, 1f, partVelocity, type, 1f);
         }
     }
+
+
 }

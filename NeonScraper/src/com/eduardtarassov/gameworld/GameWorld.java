@@ -18,6 +18,7 @@ public class GameWorld {
     private int score = 0;  */
     private PlayerShip playerShip;
     public static ParticleManager particleManager;
+    private static long gameStartTime;
 
 
      enum GameState {
@@ -26,6 +27,7 @@ public class GameWorld {
 
     public GameWorld() {
         //currentState = GameState.MENU;
+       gameStartTime = System.currentTimeMillis();
         PlayerStatus.reset();
         currentState = GameState.RUNNING;
         AssetLoader.music.play();
@@ -106,6 +108,10 @@ public class GameWorld {
 
     public static void setCurrentStateGameOver(){
         currentState = GameState.GAMEOVER;
+    }
+
+    public static long getGameDuration(){
+        return (System.currentTimeMillis() - gameStartTime) / 1000;
     }
 
     /*public PlayerShip getPlayerShip(){

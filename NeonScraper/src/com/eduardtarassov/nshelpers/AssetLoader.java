@@ -17,7 +17,7 @@ import java.util.Random;
 public class AssetLoader {
 
     private static Texture texture, logoTexture;
-    public static TextureRegion player, seeker, wanderer, bullet, greenhole, orangehole, lineParticle, logo, playButtonUp, playButtonDown;
+    public static TextureRegion player, seeker, wanderer, bullet, greenhole, orangehole, glow, lineParticle, logo, playButtonUp, playButtonDown;
     public static BitmapFont font, fontH, shadow;
     public static ArrayList<Sound> explosionS = new ArrayList();
     public static ArrayList<Sound> spawnS = new ArrayList();
@@ -46,7 +46,9 @@ public class AssetLoader {
         greenhole.flip(false, true);
         orangehole = new TextureRegion(texture, 161, 0, 40, 40);
         orangehole.flip(false, true);
-        lineParticle = new TextureRegion(texture, 202, 0, 18, 4);
+        glow = new TextureRegion(texture, 202, 0, 18, 4);
+        glow.flip(false, true);
+        lineParticle = new TextureRegion(texture, 221, 0, 22, 2);
         lineParticle.flip(false, true);
         playButtonUp = new TextureRegion(texture, 161, 0, 35, 16);
         playButtonUp.flip(false, true);

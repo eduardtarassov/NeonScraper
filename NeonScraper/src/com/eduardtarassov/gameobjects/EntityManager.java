@@ -220,5 +220,17 @@ public class EntityManager {
         target.applyGravity(new Vector2(gravity).scl(80f * pressureType));
     }
 
+    /*private static void applyParticlesGravity(Entity hole, Particle target, float delta){
+        Vector2 difference = new Vector2(hole.position).sub(target.position);
+        float distance = difference.len();
+        Vector2 n = new Vector2(difference.x / distance, difference.y / distance);
+        target.velocity.add(new Vector2(n.x * 10000 / (distance * distance + 10000), n.y * 10000 / (distance * distance + 10000)));
+
+        if (distance < 20){
+            target.duration = 1000;
+            target.velocity.add(new Vector2 (n.y / (distance +100), -n.x / (distance +100)).scl(70));
+        }
+    } */
+
 
 }
